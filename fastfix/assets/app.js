@@ -756,6 +756,118 @@
     });
   }
 
+  /* ---------- Agents: one ask fans out to one agent per app ---------- */
+
+  $$('[data-agents]').forEach((fig) => {
+    const scene = $('.ag__scene', fig);
+    const svg = $('.ag__wires', fig);
+    const ask = $('[data-ag-ask]', fig);
+    const hub = $('[data-ag-hub]', fig);
+    const agents = $$('[data-agent]', fig);
+    if (!scene || !svg || !hub || !agents.length) return;
+    const wire = (cls) => {
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('pathLength', '1');
+      path.setAttribute('class', cls);
+      svg.append(path);
+      return path;
+    };
+    const askWire = ask ? wire('ag__wire') : null;
+    const wires = agents.map(() => wire('ag__wire'));
+    const flows = agents.map(() => wire('ag__flow'));
+
+    // Layout boxes relative to the scene, ignoring the transforms the animation adds.
+    const place = (el) => {
+      let x = 0;
+      let y = 0;
+      for (let node = el; node && node !== scene; node = node.offsetParent) { x += node.offsetLeft; y += node.offsetTop; }
+      return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+    };
+    // Side by side, wires leave the hub's right edge; stacked (phones), its bottom.
+    const draw = () => {
+      svg.setAttribute('viewBox', `0 0 ${scene.offsetWidth} ${scene.offsetHeight}`);
+      const down = getComputedStyle(scene).getPropertyValue('--ag-flow').trim() === 'down';
+      const hb = place(hub);
+      const hx = hb.x + hb.w / 2;
+      const hy = hb.y + hb.h / 2;
+      agents.forEach((agent, i) => {
+        const a = place(agent);
+        const ay = a.y + a.h / 2;
+        let d;
+        if (down) {
+          const sy = hb.y + hb.h;
+          d = `M${hx} ${sy} C${hx} ${ay} ${hx} ${ay} ${a.x} ${ay}`;
+        } else {
+          const sx = hb.x + hb.w;
+          const mid = (sx + a.x) / 2;
+          d = `M${sx} ${hy} C${mid} ${hy} ${mid} ${ay} ${a.x} ${ay}`;
+        }
+        wires[i].setAttribute('d', d);
+        flows[i].setAttribute('d', d);
+        // Each agent is born on the hub.
+        agent.style.setProperty('--fx', `${hx - (a.x + a.w / 2)}px`);
+        agent.style.setProperty('--fy', `${hy - ay}px`);
+      });
+      if (askWire) {
+        const q = place(ask);
+        if (down) {
+          const sx = q.x + Math.min(24, q.w / 2);
+          const sy = q.y + q.h;
+          askWire.setAttribute('d', `M${sx} ${sy} C${sx} ${hb.y} ${hx} ${sy} ${hx} ${hb.y}`);
+        } else {
+          const sx = q.x + q.w;
+          const qy = q.y + q.h / 2;
+          const mid = (sx + hb.x) / 2;
+          askWire.setAttribute('d', `M${sx} ${qy} C${mid} ${qy} ${mid} ${hy} ${hb.x} ${hy}`);
+        }
+      }
+    };
+    draw();
+    if ('ResizeObserver' in window) new ResizeObserver(draw).observe(scene);
+    document.fonts?.ready.then(draw);
+    // Without motion the finished picture stays: every agent done, every wire drawn.
+    if (!motion() || !('IntersectionObserver' in window)) return;
+
+    const ON = [1900, 2150, 2400, 2650, 2900];
+    const DONE = [3500, 4300, 4900, 5600, 6300];
+    let timers = [];
+    const later = (ms, fn) => timers.push(window.setTimeout(fn, ms));
+    const reset = () => {
+      timers.forEach((t) => window.clearTimeout(t));
+      timers = [];
+      fig.classList.add('is-snap');
+      fig.classList.remove('is-asked', 'is-heard', 'is-fanned', 'is-done');
+      [askWire, ...agents, ...wires, ...flows].forEach((el) => el?.classList.remove('is-on', 'is-done'));
+      void fig.offsetWidth;
+      fig.classList.remove('is-snap');
+    };
+    const run = () => {
+      reset();
+      // After a loop the empty scene fades back in before the next ask.
+      fig.classList.remove('is-fading');
+      later(350, () => fig.classList.add('is-asked'));
+      later(1150, () => { fig.classList.add('is-heard'); askWire?.classList.add('is-on'); });
+      later(1650, () => fig.classList.add('is-fanned'));
+      agents.forEach((agent, i) => {
+        const on = ON[i] ?? ON[0] + i * 250;
+        const done = DONE[i] ?? on + 1600;
+        agent.style.setProperty('--work', `${done - on}ms`);
+        later(on, () => { agent.classList.add('is-on'); wires[i].classList.add('is-on'); flows[i].classList.add('is-on'); });
+        later(done, () => { agent.classList.add('is-done'); wires[i].classList.add('is-done'); flows[i].classList.remove('is-on'); });
+      });
+      later(7000, () => fig.classList.add('is-done'));
+      later(11000, () => fig.classList.add('is-fading'));
+      later(11600, run);
+    };
+    fig.classList.add('is-armed');
+    reset();
+    let playing = false;
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !playing) { playing = true; run(); }
+      else if (!entry.isIntersecting && playing) { playing = false; reset(); }
+    }, { threshold: 0.35 }).observe(fig);
+  });
+
   /* ---------- One workday ---------- */
 
   const feed = $('[data-feed]');

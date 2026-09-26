@@ -38,6 +38,10 @@
   "sms": "Your mobile number",
   "telegram": "Your Telegram number"
  },
+ "hints": {
+  "whatsapp": "By tapping Join the waitlist, you agree to early-access messages from Blindless on WhatsApp. Reply STOP to opt out.",
+  "sms": "By tapping Join the waitlist, you agree to early-access texts from Blindless. Msg frequency varies. Msg & data rates may apply. Reply HELP for help, STOP to opt out."
+ },
  "preview": "static"
 }
   </script>
@@ -47,6 +51,11 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
     <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></g></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></g></symbol>
+    <symbol id="i-app-ig" viewBox="0 0 32 32"><defs><radialGradient id="i-app-ig-g" cx=".3" cy="1.07" r="1.5"><stop offset="0" stop-color="#fdf497"/><stop offset=".08" stop-color="#fdf497"/><stop offset=".45" stop-color="#fd5949"/><stop offset=".62" stop-color="#d6249f"/><stop offset=".92" stop-color="#285aeb"/></radialGradient></defs><rect width="32" height="32" rx="8" fill="url(#i-app-ig-g)"/><rect x="7.5" y="7.5" width="17" height="17" rx="5" fill="none" stroke="#fff" stroke-width="2.2"/><circle cx="16" cy="16" r="4" fill="none" stroke="#fff" stroke-width="2.2"/><circle cx="21.4" cy="10.6" r="1.3" fill="#fff"/></symbol>
+    <symbol id="i-app-gpt" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0f0f0f"/><g fill="none" stroke="#fff" stroke-width="1.7"><rect x="12.9" y="6.2" width="6.2" height="12.2" rx="3.1"/><rect x="12.9" y="6.2" width="6.2" height="12.2" rx="3.1" transform="rotate(60 16 16)"/><rect x="12.9" y="6.2" width="6.2" height="12.2" rx="3.1" transform="rotate(120 16 16)"/><rect x="12.9" y="6.2" width="6.2" height="12.2" rx="3.1" transform="rotate(180 16 16)"/><rect x="12.9" y="6.2" width="6.2" height="12.2" rx="3.1" transform="rotate(240 16 16)"/><rect x="12.9" y="6.2" width="6.2" height="12.2" rx="3.1" transform="rotate(300 16 16)"/></g></symbol>
+    <symbol id="i-app-crm" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#f54e00"/><circle cx="12.5" cy="13" r="3.6" fill="#fff"/><path d="M6.3 23.2c.7-3.3 3.2-5.2 6.2-5.2s5.5 1.9 6.2 5.2z" fill="#fff"/><path d="M20.5 11.5h5M20.5 15h5M21.5 18.5h4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-app-gmail" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#fff"/><path d="M6.5 11.4v11.1c0 .8.7 1.5 1.5 1.5h2.8V14.6z" fill="#4285f4"/><path d="M21.2 14.6V24H24c.8 0 1.5-.7 1.5-1.5V11.4z" fill="#34a853"/><path d="M21.2 9.6v5l4.3-3.2V9.9c0-1.7-1.9-2.6-3.3-1.6z" fill="#fbbc04"/><path d="M10.8 14.6v-5l5.2 3.9 5.2-3.9v5L16 18.5z" fill="#ea4335"/><path d="M6.5 9.9v1.5l4.3 3.2v-5l-1-.8c-1.4-1-3.3-.1-3.3 1.1z" fill="#c5221f"/></symbol>
+    <symbol id="i-app-gcal" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#fff"/><rect x="7" y="7" width="18" height="18" rx="2.6" fill="#fff" stroke="#4285f4" stroke-width="1.8"/><path d="M7 9.6A2.6 2.6 0 0 1 9.6 7h12.8A2.6 2.6 0 0 1 25 9.6V12H7z" fill="#4285f4"/><text x="16" y="22.3" text-anchor="middle" font-family="Archivo, Arial, sans-serif" font-size="8.4" font-weight="700" fill="#1967d2">31</text></symbol>
   </svg>
 
   <header class="nav" id="top">
@@ -59,7 +68,7 @@
         <a href="use-cases.html">Use cases</a>
         <a href="band.html" aria-current="page">Band</a>
       </nav>
-      <a class="btn btn--ink btn--sm" href="#join">Get early access</a>
+      <a class="btn btn--ink btn--sm" href="#join">Join the waitlist</a>
     </div>
   </header>
 
@@ -74,7 +83,7 @@
             <span class="line"><span>your&nbsp;wrist.</span></span>
           </h1>
           <p class="lead bd-hero__lead">Say the task out&nbsp;loud.</p>
-          <a class="btn btn--ink bd-hero__cta" href="#join">Get early access</a>
+          <a class="btn btn--ink bd-hero__cta" href="#join">Join the waitlist</a>
         </div>
 
         <figure class="bd-stage">
@@ -126,6 +135,34 @@
       </div>
     </section>
 
+    <!-- One ask, one agent per app -->
+    <section id="agents" class="section ag-sec" aria-labelledby="agents-title">
+      <div class="wrap">
+        <div class="head head--center" data-reveal>
+          <h2 id="agents-title" class="h2">Say it once. Five&nbsp;agents.</h2>
+          <p class="lead">Each one works in its own&nbsp;app.</p>
+        </div>
+        <figure class="ag ag--voice" data-agents data-reveal>
+          <div class="ag__scene" aria-hidden="true">
+            <svg class="ag__wires" focusable="false"></svg>
+            <div class="ag__chat">
+              <p class="ag__msg ag__msg--out" data-ag-ask><svg class="ico" aria-hidden="true"><use href="#i-mic"/></svg>Handle today’s&nbsp;orders</p>
+              <p class="ag__msg ag__msg--in"><svg class="ico" aria-hidden="true"><use href="#i-logo"/></svg>Done. 12 orders&nbsp;handled.</p>
+            </div>
+            <div class="ag__hub" data-ag-hub><svg class="ag__mark"><use href="#i-logo"/></svg></div>
+            <ol class="ag__list">
+              <li class="ag__agent" data-agent><svg class="ag__app" aria-hidden="true"><use href="#i-app-ig"/></svg><span class="ag__txt"><b>Read order&nbsp;DMs</b><small>Instagram</small></span><i class="ag__state"></i></li>
+              <li class="ag__agent" data-agent><svg class="ag__app" aria-hidden="true"><use href="#i-app-gpt"/></svg><span class="ag__txt"><b>Write the&nbsp;replies</b><small>ChatGPT</small></span><i class="ag__state"></i></li>
+              <li class="ag__agent" data-agent><svg class="ag__app" aria-hidden="true"><use href="#i-app-crm"/></svg><span class="ag__txt"><b>Save new&nbsp;customers</b><small>Your CRM</small></span><i class="ag__state"></i></li>
+              <li class="ag__agent" data-agent><svg class="ag__app" aria-hidden="true"><use href="#i-app-gmail"/></svg><span class="ag__txt"><b>Send the&nbsp;invoices</b><small>Gmail</small></span><i class="ag__state"></i></li>
+              <li class="ag__agent" data-agent><svg class="ag__app" aria-hidden="true"><use href="#i-app-gcal"/></svg><span class="ag__txt"><b>Book the&nbsp;pickups</b><small>Google Calendar</small></span><i class="ag__state"></i></li>
+            </ol>
+          </div>
+          <figcaption class="sr-only">Example: you say “Handle today’s orders.” Blindless starts five agents, each in its own app: Instagram reads the order messages, ChatGPT writes the replies, your CRM saves the new customers, Gmail sends the invoices and Google Calendar books the pickups. Then it answers: “Done. 12 orders handled.”</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- The light -->
     <section class="section bd-light" aria-labelledby="light-title">
       <div class="wrap">
@@ -140,20 +177,92 @@
       </div>
     </section>
 
-    <!-- Spoken answers -->
-    <section class="section bd-talk" aria-labelledby="talk-title">
-      <div class="wrap bd-split">
-        <div class="head" data-reveal>
-          <h2 id="talk-title" class="h2">It answers out&nbsp;loud.</h2>
-          <p class="lead">Anything you text, you can&nbsp;say.</p>
+    <!-- Waitlist: the band, as a product page -->
+    <section id="join" class="section shop" aria-labelledby="join-title">
+      <div class="wrap shop__grid">
+        <div class="shop__gallery" data-reveal>
+          <figure class="bd-stage shop__stage">
+            <svg class="bd-art" viewBox="0 0 480 600" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="bd-strap-s" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#5f5b51"/>
+                  <stop offset=".24" stop-color="#c7c2b4"/>
+                  <stop offset=".5" stop-color="#dcd7ca"/>
+                  <stop offset=".76" stop-color="#c7c2b4"/>
+                  <stop offset="1" stop-color="#5f5b51"/>
+                </linearGradient>
+                <linearGradient id="bd-strap-edge-s" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#26251e" stop-opacity=".5"/>
+                  <stop offset=".16" stop-color="#26251e" stop-opacity="0"/>
+                  <stop offset=".84" stop-color="#26251e" stop-opacity="0"/>
+                  <stop offset="1" stop-color="#26251e" stop-opacity=".5"/>
+                </linearGradient>
+                <linearGradient id="bd-pod-s" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#5a584f"/>
+                  <stop offset=".5" stop-color="#2c2b26"/>
+                  <stop offset="1" stop-color="#191815"/>
+                </linearGradient>
+                <radialGradient id="bd-face-s" cx=".5" cy=".4" r=".65">
+                  <stop offset="0" stop-color="#35332d"/>
+                  <stop offset="1" stop-color="#1b1a17"/>
+                </radialGradient>
+                <filter id="bd-soft-s" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="16"/></filter>
+                <filter id="bd-glow-s" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+              </defs>
+              <rect x="168" y="-24" width="144" height="648" rx="36" fill="url(#bd-strap-s)"/>
+              <rect x="168" y="-24" width="144" height="648" rx="36" fill="url(#bd-strap-edge-s)"/>
+              <rect x="140" y="200" width="200" height="226" rx="88" fill="#000" opacity=".5" filter="url(#bd-soft-s)"/>
+              <rect x="140" y="184" width="200" height="226" rx="88" fill="url(#bd-pod-s)"/>
+              <rect x="140.75" y="184.75" width="198.5" height="224.5" rx="87.25" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1.5"/>
+              <rect x="154" y="198" width="172" height="198" rx="76" fill="url(#bd-face-s)"/>
+              <g class="bd-ring">
+                <circle class="bd-ring__track" cx="240" cy="292" r="50"/>
+                <g class="bd-ring__state bd-ring__state--heard"><circle class="bd-ring__glow" cx="240" cy="292" r="50" filter="url(#bd-glow-s)"/><circle cx="240" cy="292" r="50"/></g>
+                <g class="bd-ring__state bd-ring__state--working"><circle class="bd-ring__glow" cx="240" cy="292" r="50" pathLength="100" filter="url(#bd-glow-s)"/><circle cx="240" cy="292" r="50" pathLength="100"/></g>
+                <g class="bd-ring__state bd-ring__state--done"><circle class="bd-ring__glow" cx="240" cy="292" r="50" filter="url(#bd-glow-s)"/><circle cx="240" cy="292" r="50"/></g>
+              </g>
+              <circle cx="228" cy="378" r="2.2" fill="#0c0c0a"/>
+              <circle cx="252" cy="378" r="2.2" fill="#0c0c0a"/>
+            </svg>
+            <p class="bd-stage__state" aria-hidden="true"><span>Heard</span><span>Working</span><span>Done</span></p>
+            <figcaption class="sr-only">The Blindless Band, with its ring of light.</figcaption>
+          </figure>
+          <fieldset class="shop__thumbs">
+            <legend class="sr-only">Show the light</legend>
+              <label class="shop__thumb"><input type="radio" name="shop-light" value="heard"><i class="bd-dot bd-dot--heard" aria-hidden="true"></i><span>Heard</span></label>
+              <label class="shop__thumb"><input type="radio" name="shop-light" value="working"><i class="bd-dot bd-dot--working" aria-hidden="true"></i><span>Working</span></label>
+              <label class="shop__thumb"><input type="radio" name="shop-light" value="done"><i class="bd-dot bd-dot--done" aria-hidden="true"></i><span>Done</span></label>
+          </fieldset>
         </div>
-        <figure class="bd-voice" data-reveal>
-          <figcaption class="sr-only">Example: paying an invoice by voice.</figcaption>
-          <p class="bd-voice__you"><svg class="ico" aria-hidden="true"><use href="#i-mic"/></svg>Pay Lena’s&nbsp;invoice.</p>
-          <p class="bd-voice__it"><svg class="ico" aria-hidden="true"><use href="#i-logo"/></svg>$180 to Lena. Pay&nbsp;it?</p>
-          <p class="bd-voice__you"><svg class="ico" aria-hidden="true"><use href="#i-mic"/></svg>Yes.</p>
-          <p class="bd-voice__it"><svg class="ico" aria-hidden="true"><use href="#i-logo"/></svg>Paid. Receipt’s in&nbsp;Drive.</p>
-        </figure>
+        <div class="shop__info" data-reveal>
+          <p class="bd-status"><i aria-hidden="true"></i>Waitlist open</p>
+          <h2 id="join-title" class="shop__title">Blindless&nbsp;Band</h2>
+          <p class="shop__price">Price shown before&nbsp;launch</p>
+          <ul class="shop__perks">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Free to join</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>No card needed</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Members hear first</li>
+          </ul>
+            <form class="join shop__form" data-join data-source="band" novalidate>
+              <fieldset class="chan">
+                <legend class="sr-only">Reach me on</legend>
+                <label><input type="radio" name="channel" value="whatsapp" checked><span>WhatsApp</span></label>
+                <label><input type="radio" name="channel" value="sms"><span>SMS</span></label>
+                <label><input type="radio" name="channel" value="telegram"><span>Telegram</span></label>
+              </fieldset>
+              <div class="join__box">
+                <label class="join__cc"><span class="sr-only">Country code</span>
+                  <select name="cc"><option value="1" selected>+1 US / Canada</option><option value="52">+52 Mexico</option><option value="57">+57 Colombia</option><option value="34">+34 Spain</option><option value="44">+44 UK</option></select>
+                  <span class="join__ccv" aria-hidden="true" data-cc-label>+1</span></label>
+                <label class="sr-only" for="band-footer-phone">Mobile number</label>
+                <input id="band-footer-phone" class="field" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Your WhatsApp number" aria-describedby="band-footer-hint band-footer-msg" required>
+                <input class="hp" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <button class="btn btn--ink" type="submit">Join the waitlist</button>
+              </div>
+              <p class="join__msg" id="band-footer-msg" role="status" aria-live="polite"></p>
+              <p class="join__hint" id="band-footer-hint" data-hint>By tapping Join the waitlist, you agree to early-access messages from Blindless on WhatsApp. Reply STOP to opt&nbsp;out.</p>
+            </form>
+        </div>
       </div>
     </section>
 
@@ -180,32 +289,6 @@
       </div>
     </section>
 
-    <!-- Final CTA -->
-    <section id="join" class="final" aria-labelledby="join-title">
-      <div class="wrap final__in">
-        <h2 id="join-title" class="display final__title" data-reveal>Be first to wear&nbsp;it.</h2>
-        <p class="lead" data-reveal>Early access members hear&nbsp;first.</p>
-        <form class="join join--center" data-join data-source="band" novalidate>
-          <fieldset class="chan">
-            <legend class="sr-only">Reach me on</legend>
-            <label><input type="radio" name="channel" value="whatsapp" checked><span>WhatsApp</span></label>
-            <label><input type="radio" name="channel" value="sms"><span>SMS</span></label>
-            <label><input type="radio" name="channel" value="telegram"><span>Telegram</span></label>
-          </fieldset>
-          <div class="join__box">
-            <label class="join__cc"><span class="sr-only">Country code</span>
-              <select name="cc"><option value="1" selected>+1 US / Canada</option><option value="52">+52 Mexico</option><option value="57">+57 Colombia</option><option value="34">+34 Spain</option><option value="44">+44 UK</option></select>
-              <span class="join__ccv" aria-hidden="true" data-cc-label>+1</span></label>
-            <label class="sr-only" for="band-footer-phone">Mobile number</label>
-            <input id="band-footer-phone" class="field" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Your WhatsApp number" aria-describedby="band-footer-hint band-footer-msg" required>
-            <input class="hp" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <button class="btn btn--ink" type="submit">Get early access</button>
-          </div>
-          <p class="join__msg" id="band-footer-msg" role="status" aria-live="polite"></p>
-          <p class="join__hint" id="band-footer-hint" data-hint>By tapping Get early access, you agree to early-access messages from Blindless on WhatsApp. Reply STOP to opt&nbsp;out.</p>
-        </form>
-      </div>
-    </section>
   </main>
 
   <footer class="foot">
@@ -224,7 +307,7 @@
   </footer>
 
   <div class="dock" data-dock>
-    <a class="btn btn--ink dock__cta" href="#join" data-dock-cta>Get early access</a>
+    <a class="btn btn--ink dock__cta" href="#join" data-dock-cta>Join the waitlist</a>
   </div>
 </body>
 </html>
