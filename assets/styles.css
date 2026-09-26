@@ -2652,6 +2652,167 @@ button { font: inherit; color: inherit; }
 
 body.has-modal { overflow: hidden; }
 
+/* ---------- Band (Blindless: the band page and its teaser on the home page) ---------- */
+
+/* Hero: words and form on the left, the band on the right. */
+.bd-hero { padding-block: clamp(40px, 7vh, 96px) clamp(64px, 9vw, 128px); }
+.bd-hero__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: center; }
+.bd-hero__text { grid-column: 1 / span 6; }
+.bd-hero__title { font-size: clamp(46px, 6.1vw, 92px); font-weight: 400; line-height: 0.96; letter-spacing: -0.04em; }
+.bd-hero__lead { margin-top: 26px; max-width: 30ch; }
+.bd-hero .join { margin-top: 34px; }
+.bd-hero .chan { margin-inline: 0; }
+.bd-note { margin-top: 18px; font-size: 15px; line-height: 1.4; color: var(--stone-text); }
+.bd-hero .bd-stage { grid-column: 7 / -1; }
+.bd-hero .line > span { animation: line-up 1300ms var(--ease-out) 140ms both; }
+.bd-hero .line + .line > span { animation-delay: 240ms; }
+.bd-hero__lead { animation: rise 1200ms var(--ease-out) 420ms both; }
+.bd-hero .join, .bd-note { animation: rise 1200ms var(--ease-out) 520ms both; }
+.bd-hero .bd-stage { animation: fade 1400ms var(--ease) 300ms both; }
+
+/* The stage: a dark product shot, with the strap running off its edges. */
+.bd-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  background: radial-gradient(closest-side at 50% 46%, #24231f, #161613);
+}
+.bd-art { display: block; width: auto; height: 100%; max-width: none; }
+.bd-stage__state {
+  position: absolute;
+  left: clamp(18px, 2.4vw, 28px);
+  bottom: clamp(16px, 2.2vw, 26px);
+  display: grid;
+  justify-items: start;
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  color: var(--on-dark);
+}
+.bd-stage__state span { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: 8px; opacity: 0; }
+.bd-stage__state span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); }
+.bd-stage__state span:nth-child(1) { --c: #f7f7f4; }
+.bd-stage__state span:nth-child(2) { --c: #ff6a1f; }
+.bd-stage__state span:nth-child(3) { --c: #45b384; }
+
+/* The ring: heard (white), working (an orange arc going round), done (green), on a 9s loop. */
+.bd-ring circle { fill: none; stroke-width: 4.5; stroke-linecap: round; }
+.bd-ring__track { stroke: rgba(247, 247, 244, 0.08); }
+.bd-ring__glow { stroke-width: 10; opacity: 0.85; }
+.bd-ring__state { opacity: 0; }
+.bd-ring__state--heard circle { stroke: #f7f7f4; }
+.bd-ring__state--working circle { stroke: #ff6a1f; stroke-dasharray: 26 74; }
+.bd-ring__state--done circle { stroke: #45b384; }
+.bd-ring__state--working { transform-origin: 240px 292px; }
+@keyframes bd-heard { 0%, 30% { opacity: 1; } 34%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes bd-working { 0%, 30% { opacity: 0; } 34%, 63% { opacity: 1; } 67%, 100% { opacity: 0; } }
+@keyframes bd-done { 0%, 63% { opacity: 0; } 67%, 96% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes bd-turn { to { transform: rotate(360deg); } }
+@keyframes bd-breathe { from { opacity: 0.35; } to { opacity: 0.95; } }
+.bd-ring__state--heard,
+.bd-stage__state span:nth-child(1) { animation: bd-heard 9s linear infinite; }
+.bd-ring__state--working,
+.bd-stage__state span:nth-child(2) { animation: bd-working 9s linear infinite; }
+.bd-ring__state--done,
+.bd-stage__state span:nth-child(3) { animation: bd-done 9s linear infinite; }
+.bd-ring__state--working { animation: bd-working 9s linear infinite, bd-turn 1.6s linear infinite; }
+.bd-ring__state--heard .bd-ring__glow { animation: bd-breathe 1.5s var(--ease) infinite alternate; }
+/* the loop waits until the stage has been seen */
+.js-motion .bd-stage[data-reveal]:not(.is-in) :is(.bd-ring__state, .bd-ring__glow, .bd-stage__state span) { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .bd-ring__state, .bd-ring__glow, .bd-stage__state span, .bd-hero :is(.line > span, .bd-hero__lead, .join, .bd-note, .bd-stage) { animation: none; }
+  .bd-ring__state--working, .bd-stage__state span:nth-child(2) { opacity: 1; }
+}
+
+/* How it works: three ruled columns led by large titles, like the home page's lanes. */
+.bd-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+.bd-step { padding-top: 20px; box-shadow: inset 0 1px 0 var(--line-2); }
+.bd-step h3 { font-size: var(--fs-title); font-weight: 400; line-height: 1.1; letter-spacing: -0.022em; }
+.bd-step p { max-width: 30ch; margin-top: 14px; font-size: 17px; line-height: 1.45; color: var(--stone-text); }
+.bd-how { padding-bottom: calc(var(--section) * 0.55); }
+
+/* Two-column sections on the page's 5/7 split (as Security and Questions). */
+.bd-split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.bd-split > .head { grid-column: 1 / span 5; margin-bottom: 0; }
+.bd-split > :not(.head) { grid-column: 7 / -1; }
+.bd-light, .bd-talk { padding-block: calc(var(--section) * 0.55); }
+
+/* Things to say: the phrase, then what came back. */
+.bd-say { padding-block: calc(var(--section) * 0.55); }
+.bd-lines { box-shadow: inset 0 1px 0 var(--line-2); }
+.bd-lines li { display: grid; gap: 6px; padding-block: 20px; box-shadow: inset 0 -1px 0 var(--line); }
+.bd-lines q { font-size: var(--fs-h3); line-height: 1.3; letter-spacing: -0.02em; color: var(--ink); quotes: "\201C" "\201D"; }
+.bd-lines span { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; line-height: 1.4; color: var(--stone-text); }
+.bd-lines .ico { width: 15px; height: 15px; flex: none; color: var(--green); }
+
+/* The three states, each on a small dark disc like the band's face. */
+.bd-lights { box-shadow: inset 0 1px 0 var(--line-2); }
+.bd-lights li {
+  display: grid;
+  grid-template-columns: 44px auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 18px;
+  padding-block: 22px;
+  box-shadow: inset 0 -1px 0 var(--line);
+}
+.bd-lights b { font-size: var(--fs-h3); font-weight: 500; letter-spacing: -0.02em; }
+.bd-lights span { font-size: 17px; line-height: 1.4; color: var(--stone-text); }
+.bd-dot { position: relative; display: block; width: 44px; height: 44px; border-radius: 50%; background: #1d1c19; box-shadow: inset 0 0 0 1px rgba(247, 247, 244, 0.06); }
+.bd-dot::after { content: ""; position: absolute; inset: 11px; border-radius: 50%; border: 3px solid var(--c); box-shadow: 0 0 8px -1px var(--c); }
+.bd-dot--heard { --c: #f7f7f4; }
+.bd-dot--working { --c: #ff6a1f; }
+.bd-dot--working::after { border-color: #ff6a1f rgba(255, 106, 31, 0.18) rgba(255, 106, 31, 0.18) rgba(255, 106, 31, 0.18); box-shadow: none; }
+.bd-dot--done { --c: #45b384; }
+
+/* Spoken answers, shown as captions. */
+.bd-voice { display: grid; gap: 18px; padding: clamp(28px, 3.4vw, 44px); border-radius: 20px; background: #161613; color: var(--on-dark); }
+.bd-voice p { display: grid; gap: 4px; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.3; letter-spacing: -0.02em; }
+.bd-voice b { font-size: 13px; font-weight: 500; letter-spacing: 0; color: var(--on-dark-2); }
+.bd-voice__you { color: var(--on-dark-2); }
+.js-motion .bd-voice p { opacity: 0; transform: translate3d(0, 8px, 0); transition: opacity 600ms var(--ease), transform 800ms var(--ease-out); }
+.js-motion .bd-voice.is-in p { opacity: 1; transform: none; }
+.js-motion .bd-voice.is-in p:nth-of-type(2) { transition-delay: 500ms; }
+.js-motion .bd-voice.is-in p:nth-of-type(3) { transition-delay: 1100ms; }
+.js-motion .bd-voice.is-in p:nth-of-type(4) { transition-delay: 1500ms; }
+
+/* Home: the teaser for the band. */
+.bd-teaser { padding-block: calc(var(--section) * 0.55); }
+.bd-teaser .bd-split { align-items: center; }
+.bd-teaser .bd-stage { aspect-ratio: 16 / 10; }
+.bd-more { display: inline-flex; align-items: center; gap: 8px; justify-self: start; min-height: 44px; font-size: 17px; font-weight: 500; color: var(--ink); text-decoration: none; }
+.bd-more .ico { width: 18px; height: 18px; transition: transform 240ms var(--ease); }
+@media (hover: hover) { .bd-more:hover .ico { transform: translateX(3px); } }
+
+@media (min-width: 744px) and (max-width: 1023px) {
+  :root[data-site="blindless"] .nav__in { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 20px; }
+  :root[data-site="blindless"] .nav__links { justify-content: center; gap: 20px; }
+}
+:root[data-site="blindless"] .nav__links a { white-space: nowrap; }
+@media (max-width: 1023px) {
+  .bd-hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: 48px; }
+  .bd-hero__text { grid-column: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .bd-hero .bd-stage { grid-column: 1; width: min(100%, 560px); justify-self: center; }
+  .bd-hero .join, .bd-hero .chan { margin-inline: auto; }
+  .bd-hero .join__hint { text-align: center; }
+}
+@media (max-width: 767px) {
+  .bd-steps { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .bd-split { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }
+  .bd-split > .head, .bd-split > :not(.head) { grid-column: 1; }
+  .bd-teaser .bd-stage { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 639px) {
+  .bd-stage { border-radius: 16px; }
+  .bd-hero .bd-stage { aspect-ratio: 4 / 5; }
+  .bd-lights li { grid-template-columns: 40px minmax(0, 1fr); row-gap: 2px; }
+  .bd-lights li span { grid-column: 2; }
+  .bd-dot { width: 40px; height: 40px; }
+  .bd-dot::after { inset: 10px; }
+  .bd-voice { gap: 14px; border-radius: 16px; }
+}
+
 /* ---------- Use cases page (Blindless) ---------- */
 
 .uc-top { padding-block: clamp(56px, 9vw, 128px) clamp(80px, 8.8vw, 128px); }

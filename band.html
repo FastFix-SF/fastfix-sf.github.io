@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en" data-site="blindless">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Blindless — Band</title>
+  <meta name="description" content="A band you talk to. Say the task out loud, watch one light for where it is, and say yes before anything is paid. In the works: early access members hear first.">
+  <!-- Staging build: keep out of search until launch. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f7f7f4">
+  <meta name="color-scheme" content="light">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blindless — Band">
+  <meta property="og:description" content="Say the task. Blindless does it.">
+  <meta property="og:image" content="assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Per-site settings read by app.js (not executed). -->
+  <script type="application/json" id="site-config">
+{
+ "brand": "Blindless",
+ "key": "blindless",
+ "code": "BL",
+ "placeholders": {
+  "whatsapp": "Your WhatsApp number",
+  "sms": "Your mobile number",
+  "telegram": "Your Telegram number"
+ },
+ "preview": "static"
+}
+  </script>
+
+  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-logo" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="3.6" rx="1" fill="currentColor"/><rect x="3" y="10.2" width="18" height="3.6" rx="1" fill="#f54e00"/><rect x="3" y="16.9" width="10.5" height="3.6" rx="1" fill="currentColor"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></g></symbol>
+  </svg>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__in">
+      <a class="brand" href="index.html" aria-label="Blindless home">
+        <svg class="brand__mark brand__mark--tile" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand__name">Blindless</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html#how">How it works</a>
+        <a href="use-cases.html">Use cases</a>
+        <a href="band.html" aria-current="page">Band</a>
+        <a href="#security">Security</a>
+        <a href="#faq">Questions</a>
+      </nav>
+      <a class="btn btn--ink btn--sm" href="#join">Get early access</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero: the band, alive -->
+    <section class="bd-hero" aria-labelledby="hero-title" data-top>
+      <div class="wrap bd-hero__grid">
+        <div class="bd-hero__text">
+          <h1 id="hero-title" class="bd-hero__title">
+            <span class="line"><span>Blindless, on</span></span>
+            <span class="line"><span>your&nbsp;wrist.</span></span>
+          </h1>
+          <p class="lead bd-hero__lead">Say the task out loud. It does the work and asks before it&nbsp;pays.</p>
+          <form class="join" data-join data-source="band" novalidate>
+            <fieldset class="chan">
+              <legend class="sr-only">Reach me on</legend>
+              <label><input type="radio" name="channel" value="whatsapp" checked><span>WhatsApp</span></label>
+              <label><input type="radio" name="channel" value="sms"><span>SMS</span></label>
+              <label><input type="radio" name="channel" value="telegram"><span>Telegram</span></label>
+            </fieldset>
+            <div class="join__box">
+              <label class="join__cc"><span class="sr-only">Country code</span>
+                <select name="cc"><option value="1" selected>+1 US / Canada</option><option value="52">+52 Mexico</option><option value="57">+57 Colombia</option><option value="34">+34 Spain</option><option value="44">+44 UK</option></select>
+                <span class="join__ccv" aria-hidden="true" data-cc-label>+1</span></label>
+              <label class="sr-only" for="band-phone">Mobile number</label>
+              <input id="band-phone" class="field" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Your WhatsApp number" aria-describedby="band-hint band-msg" required>
+              <input class="hp" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <button class="btn btn--ink" type="submit">Get early access</button>
+            </div>
+            <p class="join__msg" id="band-msg" role="status" aria-live="polite"></p>
+            <p class="join__hint" id="band-hint" data-hint>By tapping Get early access, you agree to early-access messages from Blindless on WhatsApp. Reply STOP to opt&nbsp;out.</p>
+          </form>
+          <p class="bd-note">The band is in the works. Early access members hear&nbsp;first.</p>
+        </div>
+
+        <figure class="bd-stage">
+          <svg class="bd-art" viewBox="0 0 480 600" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="bd-strap" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#5f5b51"/>
+                <stop offset=".24" stop-color="#c7c2b4"/>
+                <stop offset=".5" stop-color="#dcd7ca"/>
+                <stop offset=".76" stop-color="#c7c2b4"/>
+                <stop offset="1" stop-color="#5f5b51"/>
+              </linearGradient>
+              <linearGradient id="bd-strap-edge" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#26251e" stop-opacity=".5"/>
+                <stop offset=".16" stop-color="#26251e" stop-opacity="0"/>
+                <stop offset=".84" stop-color="#26251e" stop-opacity="0"/>
+                <stop offset="1" stop-color="#26251e" stop-opacity=".5"/>
+              </linearGradient>
+              <linearGradient id="bd-pod" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#5a584f"/>
+                <stop offset=".5" stop-color="#2c2b26"/>
+                <stop offset="1" stop-color="#191815"/>
+              </linearGradient>
+              <radialGradient id="bd-face" cx=".5" cy=".4" r=".65">
+                <stop offset="0" stop-color="#35332d"/>
+                <stop offset="1" stop-color="#1b1a17"/>
+              </radialGradient>
+              <filter id="bd-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="16"/></filter>
+              <filter id="bd-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+            </defs>
+            <rect x="168" y="-24" width="144" height="648" rx="36" fill="url(#bd-strap)"/>
+            <rect x="168" y="-24" width="144" height="648" rx="36" fill="url(#bd-strap-edge)"/>
+            <rect x="140" y="200" width="200" height="226" rx="88" fill="#000" opacity=".5" filter="url(#bd-soft)"/>
+            <rect x="140" y="184" width="200" height="226" rx="88" fill="url(#bd-pod)"/>
+            <rect x="140.75" y="184.75" width="198.5" height="224.5" rx="87.25" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1.5"/>
+            <rect x="154" y="198" width="172" height="198" rx="76" fill="url(#bd-face)"/>
+            <g class="bd-ring">
+              <circle class="bd-ring__track" cx="240" cy="292" r="50"/>
+              <g class="bd-ring__state bd-ring__state--heard"><circle class="bd-ring__glow" cx="240" cy="292" r="50" filter="url(#bd-glow)"/><circle cx="240" cy="292" r="50"/></g>
+              <g class="bd-ring__state bd-ring__state--working"><circle class="bd-ring__glow" cx="240" cy="292" r="50" pathLength="100" filter="url(#bd-glow)"/><circle cx="240" cy="292" r="50" pathLength="100"/></g>
+              <g class="bd-ring__state bd-ring__state--done"><circle class="bd-ring__glow" cx="240" cy="292" r="50" filter="url(#bd-glow)"/><circle cx="240" cy="292" r="50"/></g>
+            </g>
+            <circle cx="228" cy="378" r="2.2" fill="#0c0c0a"/>
+            <circle cx="252" cy="378" r="2.2" fill="#0c0c0a"/>
+          </svg>
+          <p class="bd-stage__state" aria-hidden="true"><span>Heard</span><span>Working</span><span>Done</span></p>
+          <figcaption class="sr-only">The band’s ring of light: white when it heard you, orange while it works, green when it’s done.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section bd-how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="how-title" class="h2">Talk the way you&nbsp;text.</h2>
+        </div>
+        <ol class="bd-steps">
+          <li class="bd-step" data-reveal>
+            <h3>Say it.</h3>
+            <p>Tell it the task in your own words, the way you’d text&nbsp;it.</p>
+          </li>
+          <li class="bd-step" data-reveal>
+            <h3>It gets to&nbsp;work.</h3>
+            <p>It uses the apps you linked: your email, calendar, invoices and&nbsp;files.</p>
+          </li>
+          <li class="bd-step" data-reveal>
+            <h3>You say&nbsp;yes.</h3>
+            <p>Before it pays or sends, it asks. Answer out loud, or&nbsp;tap.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- What you can say -->
+    <section class="section bd-say" aria-labelledby="say-title">
+      <div class="wrap bd-split">
+        <div class="head" data-reveal>
+          <h2 id="say-title" class="h2">Same tasks, out&nbsp;loud.</h2>
+          <p class="lead">Anything you text it today, you can&nbsp;say.</p>
+        </div>
+        <ul class="bd-lines" data-reveal>
+          <li><q>Invoice Walt, $640, due&nbsp;Friday.</q><span><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Sent to&nbsp;Walt.</span></li>
+          <li><q>Send Bev the three website&nbsp;packages.</q><span><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Sent. She opened&nbsp;it.</span></li>
+          <li><q>Nudge anyone who owes&nbsp;me.</q><span><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>3 reminders&nbsp;sent.</span></li>
+          <li><q>Send my accountant the&nbsp;receipts.</q><span><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Sent to your&nbsp;accountant.</span></li>
+          <li><q>Move my Bev call to next&nbsp;Thursday.</q><span><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Moved to Thu, Oct 1 at 2&nbsp;PM.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- The light -->
+    <section class="section bd-light" aria-labelledby="light-title">
+      <div class="wrap bd-split">
+        <div class="head" data-reveal>
+          <h2 id="light-title" class="h2">Read it at a&nbsp;glance.</h2>
+          <p class="lead">No screen to check. One ring of light shows where your task&nbsp;is.</p>
+        </div>
+        <ul class="bd-lights" data-reveal>
+          <li><i class="bd-dot bd-dot--heard" aria-hidden="true"></i><b>Heard</b><span>It caught the&nbsp;task.</span></li>
+          <li><i class="bd-dot bd-dot--working" aria-hidden="true"></i><b>Working</b><span>It’s on it. Put your arm&nbsp;down.</span></li>
+          <li><i class="bd-dot bd-dot--done" aria-hidden="true"></i><b>Done</b><span>Finished. The details land in your&nbsp;chat.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Spoken answers -->
+    <section class="section bd-talk" aria-labelledby="talk-title">
+      <div class="wrap bd-split">
+        <div class="head" data-reveal>
+          <h2 id="talk-title" class="h2">It answers out&nbsp;loud.</h2>
+          <p class="lead">Short answers, spoken. The PDFs and receipts still land in your&nbsp;chat.</p>
+        </div>
+        <figure class="bd-voice" data-reveal>
+          <figcaption class="sr-only">Example: paying an invoice by voice.</figcaption>
+          <p class="bd-voice__you"><b>You</b>Pay Lena’s&nbsp;invoice.</p>
+          <p class="bd-voice__it"><b>Blindless</b>$180 to Lena Brooks, by PayPal. Pay&nbsp;it?</p>
+          <p class="bd-voice__you"><b>You</b>Yes.</p>
+          <p class="bd-voice__it"><b>Blindless</b>Paid. The receipt is in&nbsp;Drive.</p>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section id="security" class="section security" aria-labelledby="security-title">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="security-title" class="h2 h2--sm">Security</h2>
+          <p class="lead">Erase a task, a day or your whole&nbsp;history.<br>Disconnect any linked app in one&nbsp;tap.<br>We use 1Password and Vanta.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section faq" aria-labelledby="faq-title">
+      <div class="wrap faq__grid">
+        <div class="head" data-reveal>
+          <h2 id="faq-title" class="h2 h2--sm">Questions</h2>
+          <p class="lead">Ask us: <a href="mailto:hello@blindless.ai">hello@blindless.ai</a></p>
+        </div>
+        <div class="faq__list" data-reveal>
+          <details>
+            <summary>When can I get one?<span class="pm" aria-hidden="true"></span></summary>
+            <div class="faq__a"><p>We’re building it now. Early access members hear first, before anyone can&nbsp;order.</p></div>
+          </details>
+          <details>
+            <summary>What will it cost?<span class="pm" aria-hidden="true"></span></summary>
+            <div class="faq__a"><p>You’ll see the price before you pay&nbsp;anything.</p></div>
+          </details>
+          <details>
+            <summary>Do I need the band to use Blindless?<span class="pm" aria-hidden="true"></span></summary>
+            <div class="faq__a"><p>No. Text it on WhatsApp, SMS or Telegram&nbsp;today.</p></div>
+          </details>
+          <details>
+            <summary>Does it replace my phone?<span class="pm" aria-hidden="true"></span></summary>
+            <div class="faq__a"><p>No. Your chat keeps the PDFs, the receipts and every&nbsp;detail.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="join" class="final" aria-labelledby="join-title">
+      <div class="wrap final__in">
+        <h2 id="join-title" class="display final__title" data-reveal>Be first to wear&nbsp;it.</h2>
+        <p class="lead" data-reveal>Text Blindless today. Hear first when the band is&nbsp;ready.</p>
+        <form class="join join--center" data-join data-source="band" novalidate>
+          <fieldset class="chan">
+            <legend class="sr-only">Reach me on</legend>
+            <label><input type="radio" name="channel" value="whatsapp" checked><span>WhatsApp</span></label>
+            <label><input type="radio" name="channel" value="sms"><span>SMS</span></label>
+            <label><input type="radio" name="channel" value="telegram"><span>Telegram</span></label>
+          </fieldset>
+          <div class="join__box">
+            <label class="join__cc"><span class="sr-only">Country code</span>
+              <select name="cc"><option value="1" selected>+1 US / Canada</option><option value="52">+52 Mexico</option><option value="57">+57 Colombia</option><option value="34">+34 Spain</option><option value="44">+44 UK</option></select>
+              <span class="join__ccv" aria-hidden="true" data-cc-label>+1</span></label>
+            <label class="sr-only" for="band-footer-phone">Mobile number</label>
+            <input id="band-footer-phone" class="field" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Your WhatsApp number" aria-describedby="band-footer-hint band-footer-msg" required>
+            <input class="hp" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn--ink" type="submit">Get early access</button>
+          </div>
+          <p class="join__msg" id="band-footer-msg" role="status" aria-live="polite"></p>
+          <p class="join__hint" id="band-footer-hint" data-hint>By tapping Get early access, you agree to early-access messages from Blindless on WhatsApp. Reply STOP to opt&nbsp;out.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <a class="brand" href="index.html" aria-label="Blindless home">
+        <svg class="brand__mark brand__mark--tile" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand__name">Blindless</span>
+      </a>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="index.html#how">How it works</a>
+        <a href="use-cases.html">Use cases</a>
+        <a href="band.html">Band</a>
+        <a href="#security">Security</a>
+        <a href="#faq">Questions</a>
+        <a href="mailto:hello@blindless.ai">Contact</a>
+      </nav>
+      <p class="foot__copy">© <span data-year>2026</span> Blindless.ai</p>
+    </div>
+  </footer>
+
+  <div class="dock" data-dock>
+    <a class="btn btn--ink dock__cta" href="#join" data-dock-cta>Get early access</a>
+  </div>
+</body>
+</html>

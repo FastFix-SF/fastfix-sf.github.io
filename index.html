@@ -150,6 +150,7 @@
       <nav class="nav__links" aria-label="Primary">
         <a href="#how">How it works</a>
         <a href="use-cases.html">Use cases</a>
+        <a href="band.html">Band</a>
         <a href="#security">Security</a>
         <a href="#faq">Questions</a>
       </nav>
@@ -601,12 +602,69 @@
       </div>
     </section>
 
+    <!-- The band: a teaser -->
+    <section id="band" class="bd-teaser" aria-labelledby="band-title">
+      <div class="wrap bd-split">
+        <div class="head" data-reveal>
+          <h2 id="band-title" class="h2">Soon, just say&nbsp;it.</h2>
+          <p class="lead">A band you talk to. Same Blindless, no&nbsp;screen.</p>
+          <a class="bd-more" href="band.html">See the band<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+        <figure class="bd-stage" data-reveal>
+          <svg class="bd-art" viewBox="0 0 480 600" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="bd-strap" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#5f5b51"/>
+                <stop offset=".24" stop-color="#c7c2b4"/>
+                <stop offset=".5" stop-color="#dcd7ca"/>
+                <stop offset=".76" stop-color="#c7c2b4"/>
+                <stop offset="1" stop-color="#5f5b51"/>
+              </linearGradient>
+              <linearGradient id="bd-strap-edge" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#26251e" stop-opacity=".5"/>
+                <stop offset=".16" stop-color="#26251e" stop-opacity="0"/>
+                <stop offset=".84" stop-color="#26251e" stop-opacity="0"/>
+                <stop offset="1" stop-color="#26251e" stop-opacity=".5"/>
+              </linearGradient>
+              <linearGradient id="bd-pod" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#5a584f"/>
+                <stop offset=".5" stop-color="#2c2b26"/>
+                <stop offset="1" stop-color="#191815"/>
+              </linearGradient>
+              <radialGradient id="bd-face" cx=".5" cy=".4" r=".65">
+                <stop offset="0" stop-color="#35332d"/>
+                <stop offset="1" stop-color="#1b1a17"/>
+              </radialGradient>
+              <filter id="bd-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="16"/></filter>
+              <filter id="bd-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+            </defs>
+            <rect x="168" y="-24" width="144" height="648" rx="36" fill="url(#bd-strap)"/>
+            <rect x="168" y="-24" width="144" height="648" rx="36" fill="url(#bd-strap-edge)"/>
+            <rect x="140" y="200" width="200" height="226" rx="88" fill="#000" opacity=".5" filter="url(#bd-soft)"/>
+            <rect x="140" y="184" width="200" height="226" rx="88" fill="url(#bd-pod)"/>
+            <rect x="140.75" y="184.75" width="198.5" height="224.5" rx="87.25" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1.5"/>
+            <rect x="154" y="198" width="172" height="198" rx="76" fill="url(#bd-face)"/>
+            <g class="bd-ring">
+              <circle class="bd-ring__track" cx="240" cy="292" r="50"/>
+              <g class="bd-ring__state bd-ring__state--heard"><circle class="bd-ring__glow" cx="240" cy="292" r="50" filter="url(#bd-glow)"/><circle cx="240" cy="292" r="50"/></g>
+              <g class="bd-ring__state bd-ring__state--working"><circle class="bd-ring__glow" cx="240" cy="292" r="50" pathLength="100" filter="url(#bd-glow)"/><circle cx="240" cy="292" r="50" pathLength="100"/></g>
+              <g class="bd-ring__state bd-ring__state--done"><circle class="bd-ring__glow" cx="240" cy="292" r="50" filter="url(#bd-glow)"/><circle cx="240" cy="292" r="50"/></g>
+            </g>
+            <circle cx="228" cy="378" r="2.2" fill="#0c0c0a"/>
+            <circle cx="252" cy="378" r="2.2" fill="#0c0c0a"/>
+          </svg>
+          <p class="bd-stage__state" aria-hidden="true"><span>Heard</span><span>Working</span><span>Done</span></p>
+          <figcaption class="sr-only">The band’s ring of light: white when it heard you, orange while it works, green when it’s done.</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- Security -->
     <section id="security" class="section security" aria-labelledby="security-title">
       <div class="wrap">
         <div class="head" data-reveal>
           <h2 id="security-title" class="h2 h2--sm">Security</h2>
-          <p class="lead">Disconnect any linked app in one&nbsp;tap.<br>Everything it does is logged.<br>We use 1Password and Vanta.</p>
+          <p class="lead">Disconnect any linked app in one&nbsp;tap.<br>Erase a task, a day or your whole&nbsp;history.<br>Everything it does is logged.<br>We use 1Password and Vanta.</p>
         </div>
       </div>
     </section>
@@ -630,6 +688,10 @@
           <details>
             <summary>What does it cost?<span class="pm" aria-hidden="true"></span></summary>
             <div class="faq__a"><p>Early access is free. You’ll see the price before you pay&nbsp;anything.</p></div>
+          </details>
+          <details>
+            <summary>Is there a device?<span class="pm" aria-hidden="true"></span></summary>
+            <div class="faq__a"><p>Yes. A band you talk to is in the works. Early access members hear&nbsp;first.</p></div>
           </details>
         </div>
       </div>
@@ -676,6 +738,7 @@
       <nav class="foot__links" aria-label="Footer">
         <a href="#how">How it works</a>
         <a href="use-cases.html">Use cases</a>
+        <a href="band.html">Band</a>
         <a href="#security">Security</a>
         <a href="#faq">Questions</a>
         <a href="mailto:hello@blindless.ai">Contact</a>
