@@ -66,6 +66,7 @@
     <symbol id="i-next" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"/></symbol>
     <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></g></symbol>
     <symbol id="i-expand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></g></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></g></symbol>
     <symbol id="i-key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".6" fill="currentColor"/></g></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g></symbol>
     <symbol id="i-cards" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.8" y="6.2" width="10" height="14.5" rx="1.8" transform="rotate(-12 7.8 13.45)"/><rect x="10.5" y="3.5" width="10" height="14.5" rx="1.8" transform="rotate(10 15.5 10.75)" fill="currentColor"/></g></symbol>
@@ -78,11 +79,8 @@
         <span class="brand__name">Blindless</span>
       </a>
       <nav class="nav__links" aria-label="Primary">
-        <a href="index.html#how">How it works</a>
         <a href="use-cases.html" aria-current="page">Use cases</a>
         <a href="band.html">Band</a>
-        <a href="index.html#security">Security</a>
-        <a href="index.html#faq">Questions</a>
       </nav>
       <a class="btn btn--ink btn--sm" href="#join">Get early access</a>
     </div>
@@ -90,117 +88,82 @@
 
   <main id="main">
     <header class="uc-top" data-top>
-      <div class="wrap uc-top__grid">
-        <div class="uc-top__head">
-          <h1 class="uc-top__title">What you can hand&nbsp;off.</h1>
-          <p class="lead uc-top__lead">Text the task. Blindless does&nbsp;it.</p>
-        </div>
-        <nav class="uc-index" aria-label="Lines of work"><a href="#salons">Salons and barbers<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a><a href="#cafes">Cafés and bakeries<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a><a href="#real-estate">Real estate<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a><a href="#home-services">Home services<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a><a href="#freelancers">Freelancers<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a><a href="#shops">Online shops<svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></nav>
+      <div class="wrap">
+        <h1 class="uc-top__title">What you can hand&nbsp;off.</h1>
       </div>
     </header>
 
-    <section id="salons" class="uc" aria-labelledby="salons-title">
-      <div class="wrap uc__grid">
-        <div class="uc__text">
-          <h2 id="salons-title" class="uc__title">Salons and barbers</h2>
-          <p class="uc__apps">Square · Google Calendar</p>
-        </div>
-        <div class="uc__chat wall" role="img" aria-label="Example chat. You: Remind tomorrow’s clients. Blindless: Sent to 9 clients. You: Move Kim to Friday at 3. Blindless: Moved. Kim confirmed.">
-          <div class="uc__thread" aria-hidden="true">
-              <p class="tb tb--out">Remind tomorrow’s&nbsp;clients<span class="tb__meta">8:40<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>Sent to 9&nbsp;clients.<span class="tb__meta">8:41</span></p></div>
-              <p class="tb tb--out">Move Kim to Friday at&nbsp;3<span class="tb__meta">9:05<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>Moved. Kim&nbsp;confirmed.<span class="tb__meta">9:12</span></p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="cafes" class="uc" aria-labelledby="cafes-title">
-      <div class="wrap uc__grid">
-        <div class="uc__text">
-          <h2 id="cafes-title" class="uc__title">Cafés and bakeries</h2>
-          <p class="uc__apps">Square · Google Sheets</p>
-        </div>
-        <div class="uc__chat wall" role="img" aria-label="Example chat. You: Mark almond croissants sold out. Blindless: Sold out on Square. You: Send the team next week’s shifts. Blindless: All 6 have them.">
-          <div class="uc__thread" aria-hidden="true">
-              <p class="tb tb--out">Mark almond croissants sold&nbsp;out<span class="tb__meta">6:10<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>Sold out on&nbsp;Square.<span class="tb__meta">6:10</span></p></div>
-              <p class="tb tb--out">Send the team next week’s&nbsp;shifts<span class="tb__meta">6:12<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>All 6 have&nbsp;them.<span class="tb__meta">6:13</span></p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="real-estate" class="uc" aria-labelledby="real-estate-title">
-      <div class="wrap uc__grid">
-        <div class="uc__text">
-          <h2 id="real-estate-title" class="uc__title">Real estate</h2>
-          <p class="uc__apps">Gmail · Google Calendar</p>
-        </div>
-        <div class="uc__chat wall" role="img" aria-label="Example chat. You: Send the Nguyens the disclosures. Blindless: 9 Birch Ln disclosures.pdf. Sent from your Gmail. You: Book them showings on Saturday. Blindless: 3 showings booked. Invites are out.">
-          <div class="uc__thread" aria-hidden="true">
-              <p class="tb tb--out">Send the Nguyens the&nbsp;disclosures<span class="tb__meta">9:15<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p class="uc__file"><span class="wdoc__icon" aria-hidden="true">PDF</span>9 Birch Ln disclosures.pdf</p><p>Sent from your&nbsp;Gmail.<span class="tb__meta">9:17</span></p></div>
-              <p class="tb tb--out">Book them showings on&nbsp;Saturday<span class="tb__meta">9:20<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>3 showings booked. Invites are&nbsp;out.<span class="tb__meta">9:21</span></p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="home-services" class="uc" aria-labelledby="home-services-title">
-      <div class="wrap uc__grid">
-        <div class="uc__text">
-          <h2 id="home-services-title" class="uc__title">Home services</h2>
-          <p class="uc__apps">QuickBooks · Google Calendar</p>
-        </div>
-        <div class="uc__chat wall" role="img" aria-label="Example chat. You: Quote Amy a 3-bed deep clean. Blindless: Quoted Amy $340. You: Tell my 2 PM we’re 20 minutes late. Blindless: Done. She said no problem.">
-          <div class="uc__thread" aria-hidden="true">
-              <p class="tb tb--out">Quote Amy a 3-bed deep&nbsp;clean<span class="tb__meta">7:30<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>Quoted Amy&nbsp;$340.<span class="tb__meta">7:31</span></p></div>
-              <p class="tb tb--out">Tell my 2&nbsp;PM we’re 20&nbsp;minutes&nbsp;late<span class="tb__meta">1:38<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>Done. She said no&nbsp;problem.<span class="tb__meta">1:39</span></p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="freelancers" class="uc" aria-labelledby="freelancers-title">
-      <div class="wrap uc__grid">
-        <div class="uc__text">
-          <h2 id="freelancers-title" class="uc__title">Freelancers</h2>
-          <p class="uc__apps">QuickBooks · PayPal</p>
-        </div>
-        <div class="uc__chat wall" role="img" aria-label="Example chat. You: Invoice Priya for September. Blindless: INV-0152 Priya Shah.pdf. Sent with your PayPal link. You: Remind anyone who’s overdue. Blindless: Reminded Marco and Jen.">
-          <div class="uc__thread" aria-hidden="true">
-              <p class="tb tb--out">Invoice Priya for&nbsp;September<span class="tb__meta">8:02<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p class="uc__file"><span class="wdoc__icon" aria-hidden="true">PDF</span>INV-0152 Priya Shah.pdf</p><p>Sent with your PayPal&nbsp;link.<span class="tb__meta">8:03</span></p></div>
-              <p class="tb tb--out">Remind anyone who’s&nbsp;overdue<span class="tb__meta">11:20<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>Reminded Marco and&nbsp;Jen.<span class="tb__meta">11:21</span></p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="shops" class="uc" aria-labelledby="shops-title">
-      <div class="wrap uc__grid">
-        <div class="uc__text">
-          <h2 id="shops-title" class="uc__title">Online shops</h2>
-          <p class="uc__apps">Shopify · Stripe</p>
-        </div>
-        <div class="uc__chat wall" role="img" aria-label="Example chat. You: Where’s order 1047? Blindless: Arrives Friday. I sent them tracking. You: Refund order 1052. Blindless: Refund $48 to Jordan? You: Yes, refund it.">
-          <div class="uc__thread" aria-hidden="true">
-              <p class="tb tb--out">Where’s order&nbsp;1047?<span class="tb__meta">10:02<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>Arrives Friday. I sent them&nbsp;tracking.<span class="tb__meta">10:02</span></p></div>
-              <p class="tb tb--out">Refund order&nbsp;1052<span class="tb__meta">10:15<svg><use href="#i-check-check"/></svg></span></p>
-              <div class="tb tb--in"><p>Refund $48 to Jordan?<span class="tb__meta">10:15</span></p></div>
-              <p class="tb tb--out">Yes, refund&nbsp;it<span class="tb__meta">10:16<svg><use href="#i-check-check"/></svg></span></p>
-          </div>
-        </div>
+    <section class="uc-cards" aria-label="Examples by line of work">
+      <div class="wrap">
+        <ul class="uc-grid">
+          <li class="uc-card" id="salons" data-reveal>
+            <h2 class="uc-card__title">Salons &amp; barbers</h2>
+            <p class="uc-card__apps"><span class="bl-chip">Square</span><span class="bl-chip">Google Calendar</span></p>
+            <div class="uc__chat wall" role="img" aria-label="Example chat. You: Remind tomorrow’s clients. Blindless: Sent to 9 clients.">
+              <div class="uc__thread" aria-hidden="true">
+                <p class="tb tb--out">Remind tomorrow’s&nbsp;clients</p>
+                <div class="tb tb--in"><p>Sent to 9&nbsp;clients.</p></div>
+              </div>
+            </div>
+          </li>
+          <li class="uc-card" id="cafes" data-reveal>
+            <h2 class="uc-card__title">Cafés &amp; bakeries</h2>
+            <p class="uc-card__apps"><span class="bl-chip">Square</span><span class="bl-chip">Google Sheets</span></p>
+            <div class="uc__chat wall" role="img" aria-label="Example chat. You: Mark croissants sold out. Blindless: Sold out on Square.">
+              <div class="uc__thread" aria-hidden="true">
+                <p class="tb tb--out">Mark croissants sold&nbsp;out</p>
+                <div class="tb tb--in"><p>Sold out on&nbsp;Square.</p></div>
+              </div>
+            </div>
+          </li>
+          <li class="uc-card" id="real-estate" data-reveal>
+            <h2 class="uc-card__title">Real estate</h2>
+            <p class="uc-card__apps"><span class="bl-chip">Gmail</span><span class="bl-chip">Google Calendar</span></p>
+            <div class="uc__chat wall" role="img" aria-label="Example chat. You: Send the Nguyens the disclosures. Blindless: Disclosures.pdf. Sent from your Gmail.">
+              <div class="uc__thread" aria-hidden="true">
+                <p class="tb tb--out">Send the Nguyens the&nbsp;disclosures</p>
+                <div class="tb tb--in"><p class="uc__file"><span class="wdoc__icon" aria-hidden="true">PDF</span>Disclosures.pdf</p><p>Sent from your&nbsp;Gmail.</p></div>
+              </div>
+            </div>
+          </li>
+          <li class="uc-card" id="home-services" data-reveal>
+            <h2 class="uc-card__title">Home services</h2>
+            <p class="uc-card__apps"><span class="bl-chip">QuickBooks</span><span class="bl-chip">Google Calendar</span></p>
+            <div class="uc__chat wall" role="img" aria-label="Example chat. You: Tell my 2 PM I’m late. Blindless: Done. She said no problem.">
+              <div class="uc__thread" aria-hidden="true">
+                <p class="tb tb--out">Tell my 2&nbsp;PM I’m&nbsp;late</p>
+                <div class="tb tb--in"><p>Done. She said no&nbsp;problem.</p></div>
+              </div>
+            </div>
+          </li>
+          <li class="uc-card" id="freelancers" data-reveal>
+            <h2 class="uc-card__title">Freelancers</h2>
+            <p class="uc-card__apps"><span class="bl-chip">QuickBooks</span><span class="bl-chip">PayPal</span></p>
+            <div class="uc__chat wall" role="img" aria-label="Example chat. You: Invoice Priya for September. Blindless: INV-0152.pdf. Sent with your PayPal link.">
+              <div class="uc__thread" aria-hidden="true">
+                <p class="tb tb--out">Invoice Priya for&nbsp;September</p>
+                <div class="tb tb--in"><p class="uc__file"><span class="wdoc__icon" aria-hidden="true">PDF</span>INV-0152.pdf</p><p>Sent with your PayPal&nbsp;link.</p></div>
+              </div>
+            </div>
+          </li>
+          <li class="uc-card" id="shops" data-reveal>
+            <h2 class="uc-card__title">Online shops</h2>
+            <p class="uc-card__apps"><span class="bl-chip">Shopify</span><span class="bl-chip">Stripe</span></p>
+            <div class="uc__chat wall" role="img" aria-label="Example chat. You: Where’s order 1047? Blindless: Arrives Friday. I sent them tracking.">
+              <div class="uc__thread" aria-hidden="true">
+                <p class="tb tb--out">Where’s order&nbsp;1047?</p>
+                <div class="tb tb--in"><p>Arrives Friday. I sent them&nbsp;tracking.</p></div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 
     <section id="join" class="final uc-final" aria-labelledby="join-title">
       <div class="wrap final__in">
         <h2 id="join-title" class="display final__title">Don’t see&nbsp;yours?</h2>
-        <p class="lead">Teach Blindless any task you&nbsp;repeat.</p>
+        <p class="lead">Teach it any task you&nbsp;repeat.</p>
         <form class="join join--center" data-join data-source="use-cases" novalidate>
           <fieldset class="chan">
             <legend class="sr-only">Reach me on</legend>
@@ -231,11 +194,8 @@
         <span class="brand__name">Blindless</span>
       </a>
       <nav class="foot__links" aria-label="Footer">
-        <a href="index.html#how">How it works</a>
         <a href="use-cases.html">Use cases</a>
         <a href="band.html">Band</a>
-        <a href="index.html#security">Security</a>
-        <a href="index.html#faq">Questions</a>
         <a href="mailto:hello@blindless.ai">Contact</a>
       </nav>
       <p class="foot__copy">© <span data-year>2026</span> Blindless.ai</p>
