@@ -27,9 +27,19 @@
   })();
   const BRAND = CONFIG.brand || 'FastFix';
   const KEY_BASE = CONFIG.key || 'fastfix';
+  // Sign-ups can go straight to a hosted table from any static host: "store" in
+  // #site-config names a Supabase table the public may only insert into (its
+  // row-level security allows insert and never read). Only a publishable key is
+  // accepted here, never a secret one.
+  const STORE = (() => {
+    const s = CONFIG.store;
+    if (!s || !/^https:\/\/[a-z0-9]+\.supabase\.co$/.test(s.url) || !/^sb_publishable_[\w-]+$/.test(s.key)) return null;
+    return { url: s.url, key: s.key, table: /^[a-z_]+$/.test(s.table || '') ? s.table : 'waitlist_signups' };
+  })();
   // The GitHub Pages staging copy is static: there is no /api/waitlist behind
-  // it, so the forms send nothing and say so. Set only by sites/build-pages.mjs.
-  const STATIC_PREVIEW = CONFIG.preview === 'static';
+  // it, so unless the page names a store the forms send nothing and say so.
+  // Set only by sites/build-pages.mjs.
+  const STATIC_PREVIEW = CONFIG.preview === 'static' && !STORE;
 
   // E.164 from what people type. A leading "+" (or "00") wins over the picker.
   function toE164(raw, cc = '1') {
@@ -121,6 +131,18 @@
       .catch(() => null)
     : null;
 
+  // One row per sign-up. The honeypot answers like a success so a bot moves on.
+  async function saveToStore({ company_website: trap, phone, channel, source, prize = null, code = null }) {
+    if (trap) return {};
+    const res = await fetch(`${STORE.url}/rest/v1/${STORE.table}`, {
+      method: 'POST',
+      headers: { apikey: STORE.key, 'content-type': 'application/json', prefer: 'return=minimal' },
+      body: JSON.stringify({ site: KEY_BASE, phone, channel, source, prize, code, page: window.location.pathname.slice(0, 200) }),
+    });
+    if (!res.ok) throw new Error(`store ${res.status}`);
+    return {};
+  }
+
   async function postSignup(payload) {
     if (STATIC_PREVIEW) return { preview: true };
     if (previewStore) {
@@ -137,6 +159,7 @@
       await (snap.exists ? ref.update(fields) : ref.set(fields));
       return {};
     }
+    if (STORE) return saveToStore(payload);
     const res = await fetch('/api/waitlist', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
