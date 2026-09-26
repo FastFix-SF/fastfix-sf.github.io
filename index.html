@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en" class="at-join" data-site="blindless">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Blindless — Do any work from your phone</title>
+  <meta name="description" content="Blindless is an assistant you text on WhatsApp, SMS or Telegram. Teach it a task once. It sends your invoices and reminders, and asks before it pays.">
+  <!-- Staging build: keep out of search until launch. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f7f7f4">
+  <meta name="color-scheme" content="light">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blindless — Do any work from your phone">
+  <meta property="og:description" content="An assistant you text. Teach it once.">
+  <meta property="og:image" content="assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Per-site settings read by app.js (not executed). -->
+  <script type="application/json" id="site-config">
+{
+ "brand": "Blindless",
+ "key": "blindless",
+ "code": "BL",
+ "cardTag": "Free setup",
+ "prizes": [
+  {
+   "id": "invoices",
+   "code": "BILLS",
+   "title": "Automate your invoices",
+   "cmd": "Invoice Walt for the shoot",
+   "won": "automated invoices",
+   "line": "Free setup. You skip the waitlist."
+  },
+  {
+   "id": "reminders",
+   "code": "NUDGE",
+   "title": "Automate your reminders",
+   "cmd": "Remind tomorrow’s clients",
+   "won": "automated reminders",
+   "line": "Free setup. You skip the waitlist."
+  },
+  {
+   "id": "inbox",
+   "code": "INBOX",
+   "title": "Get a morning inbox brief",
+   "cmd": "What needs me today?",
+   "won": "a morning inbox brief",
+   "line": "Free setup. You skip the waitlist."
+  }
+ ],
+ "order": [
+  "inv",
+  "quo",
+  "pay",
+  "stb",
+  "eml",
+  "sch"
+ ],
+ "docs": {
+  "inv": {
+   "name": "INV-0148 Walt Dorsey.pdf",
+   "sub": "1 page · Today at 9:12 AM",
+   "cap": "Sent to Walt."
+  },
+  "quo": {
+   "name": "P-031 Bev Hollis.pdf",
+   "sub": "2 pages · Today at 10:21 AM",
+   "cap": "Sent to Bev. She opened it."
+  },
+  "pay": {
+   "name": "LB-027 Lena Brooks.pdf",
+   "sub": "1 page · Today at 12:40 PM",
+   "cap": "Lena’s invoice, $180."
+  },
+  "stb": {
+   "name": "September receipts.pdf",
+   "names": [
+    "Software receipt Sep 18.pdf",
+    "Lens rental receipt Sep 12.pdf",
+    "Coworking receipt Sep 1.pdf"
+   ],
+   "sub": "1 page · Today at 12:51 PM",
+   "cap": "Sent to your accountant."
+  },
+  "eml": {
+   "name": "A quick reminder about INV-0139",
+   "sub": "Email · Today at 1:21 PM",
+   "cap": "3 reminders sent."
+  },
+  "sch": {
+   "name": "Calendar · week of Sep 28",
+   "sub": "Screenshot · Today at 2:05 PM",
+   "cap": "Moved to Thu, Oct 1 at 2 PM."
+  }
+ },
+ "placeholders": {
+  "whatsapp": "Your WhatsApp number",
+  "sms": "Your mobile number",
+  "telegram": "Your Telegram number"
+ },
+ "preview": "static"
+}
+  </script>
+
+  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-logo" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="3.6" rx="1" fill="currentColor"/><rect x="3" y="10.2" width="18" height="3.6" rx="1" fill="#f54e00"/><rect x="3" y="16.9" width="10.5" height="3.6" rx="1" fill="currentColor"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-check-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></g></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></g></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></g></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></g></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5v14"/></g></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></g></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></g></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></g></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10V9"/><path d="M16.472 15a6 6 0 01-8.943 0"/><path d="M9 10V9"/><circle cx="12" cy="12" r="10"/></g></symbol>
+    <symbol id="i-reply" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 18v-2a4 4 0 0 0-4-4H4"/><path d="m9 17-5-5 5-5"/></g></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></g></symbol>
+    <symbol id="i-circle-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16 9-5.5 5.5L8 12"/></g></symbol>
+    <symbol id="i-scroll" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></g></symbol>
+    <symbol id="i-wifi" viewBox="0 0 17 12"><path fill="currentColor" d="M8.5 2.6c2.2 0 4.2.84 5.72 2.23a.5.5 0 0 0 .69-.01l1.05-1.06a.5.5 0 0 0-.01-.72A11.1 11.1 0 0 0 8.5 0C5.93 0 3.53.98 1.55 2.99a.5.5 0 0 0 0 .72l1.05 1.06c.19.19.5.2.7.01A8.2 8.2 0 0 1 8.5 2.6Zm0 3.52c1.28 0 2.46.48 3.37 1.28a.5.5 0 0 0 .69-.02l1.05-1.06a.5.5 0 0 0-.02-.73A6.7 6.7 0 0 0 8.5 3.84a6.7 6.7 0 0 0-5.09 1.75.5.5 0 0 0-.02.73l1.05 1.06c.19.19.49.2.69.02a5 5 0 0 1 3.37-1.28Zm2.33 2.58a.5.5 0 0 0-.03-.74 3.5 3.5 0 0 0-4.6 0 .5.5 0 0 0-.03.74l1.97 1.99a.5.5 0 0 0 .71 0l1.98-1.99Z"/></symbol>
+    <symbol id="i-power" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77.04"/></g></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/></g></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></g></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".6" fill="currentColor"/></g></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g></symbol>
+    <symbol id="i-cards" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="2.8" y="6.2" width="10" height="14.5" rx="1.8" transform="rotate(-12 7.8 13.45)"/><rect x="10.5" y="3.5" width="10" height="14.5" rx="1.8" transform="rotate(10 15.5 10.75)" fill="currentColor"/></g></symbol>
+  </svg>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__in">
+      <a class="brand" href="#top" aria-label="Blindless home">
+        <svg class="brand__mark brand__mark--tile" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand__name">Blindless</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="use-cases.html">Use cases</a>
+        <a href="#security">Security</a>
+        <a href="#faq">Questions</a>
+      </nav>
+      <a class="btn btn--ink btn--sm" href="#join">Get early access</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero__in">
+        <h1 id="hero-title" class="display hero__title">
+          <span class="line"><span>Do any work</span></span>
+          <span class="line"><span>from your&nbsp;phone.</span></span>
+        </h1>
+        <p class="lead hero__lead">An assistant you text. Teach it&nbsp;once.</p>
+        <form class="join join--center" data-join data-source="hero" novalidate>
+          <fieldset class="chan">
+            <legend class="sr-only">Reach me on</legend>
+            <label><input type="radio" name="channel" value="whatsapp" checked><span>WhatsApp</span></label>
+            <label><input type="radio" name="channel" value="sms"><span>SMS</span></label>
+            <label><input type="radio" name="channel" value="telegram"><span>Telegram</span></label>
+          </fieldset>
+          <div class="join__box">
+            <label class="join__cc"><span class="sr-only">Country code</span>
+              <select name="cc"><option value="1" selected>+1 US / Canada</option><option value="52">+52 Mexico</option><option value="57">+57 Colombia</option><option value="34">+34 Spain</option><option value="44">+44 UK</option></select>
+              <span class="join__ccv" aria-hidden="true" data-cc-label>+1</span></label>
+            <label class="sr-only" for="hero-phone">Mobile number</label>
+            <input id="hero-phone" class="field" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Your WhatsApp number" aria-describedby="hero-hint hero-msg" required>
+            <input class="hp" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn--ink" type="submit">Get early access</button>
+          </div>
+          <p class="join__msg" id="hero-msg" role="status" aria-live="polite"></p>
+          <p class="join__hint" id="hero-hint" data-hint>By tapping Get early access, you agree to early-access messages from Blindless on WhatsApp. Reply STOP to opt&nbsp;out.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- How it works: pinned, scroll-driven -->
+    <section id="how" class="story" aria-labelledby="story-title" data-story>
+      <div class="story__sticky">
+        <div class="wrap story__grid">
+          <div class="story__copy">
+            <h2 id="story-title" class="sr-only">How it works</h2>
+            <ol class="steps" data-steps>
+              <li class="step is-active" data-range="0,0.16"><h3>You text&nbsp;it.</h3><p>In plain&nbsp;words.</p><i class="step__bar" aria-hidden="true"></i></li>
+              <li class="step" data-range="0.16,0.36"><h3>You teach it&nbsp;once.</h3><p>It&nbsp;remembers.</p><i class="step__bar" aria-hidden="true"></i></li>
+              <li class="step" data-range="0.36,0.58"><h3>You get the&nbsp;file.</h3><p>Right in the&nbsp;chat.</p><i class="step__bar" aria-hidden="true"></i></li>
+              <li class="step" data-range="0.58,1"><h3>You approve every&nbsp;payment.</h3><p>Say yes, or not&nbsp;yet.</p><i class="step__bar" aria-hidden="true"></i></li>
+            </ol>
+            <div class="story__controls">
+              <div class="seg" role="radiogroup" aria-label="Show the chat in">
+                <button type="button" role="radio" aria-checked="true" data-channel="WhatsApp">WhatsApp</button>
+                <button type="button" role="radio" aria-checked="false" data-channel="SMS">SMS</button>
+                <button type="button" role="radio" aria-checked="false" data-channel="Telegram">Telegram</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="story__stage">
+            <div class="device" data-device>
+              <div class="phone" data-phone data-channel="WhatsApp" aria-hidden="true">
+                <div class="phone__screen">
+                  <div class="status"><span data-status-time>8:02</span><span class="status__icons"><i class="bars"></i><svg class="wifi"><use href="#i-wifi"/></svg><i class="batt"></i></span></div>
+                  <div class="app-head">
+                    <svg class="app-head__back"><use href="#i-back"/></svg>
+                    <span class="app-head__backlabel">Chats</span>
+                    <span class="avatar"><svg><use href="#i-logo"/></svg></span>
+                    <span class="app-head__who"><b>Blindless</b><small data-channel-label>online</small></span>
+                    <span class="app-head__icons"><svg><use href="#i-video"/></svg><svg><use href="#i-phone"/></svg></span>
+                  </div>
+                  <div class="thread" data-thread>
+                    <div class="thread__list" data-thread-list>
+                      <p class="day-chip" data-time="8:02 AM">Today</p>
+                      <div class="msg msg--out" data-at="0"><span class="msg__text">Invoice Dana $1,200 for the&nbsp;logo</span><span class="msg__meta">8:02<svg class="tick2"><use href="#i-check-check"/></svg><svg class="tick1"><use href="#i-check"/></svg></span></div>
+                      <div class="msg msg--out" data-at="0.18"><span class="msg__text">Always add my PayPal link</span><span class="msg__meta">8:02<svg class="tick2"><use href="#i-check-check"/></svg><svg class="tick1"><use href="#i-check"/></svg></span></div>
+                      <div class="typing" data-from="0.24" data-to="0.36"><span class="typing__bubble"><i></i><i></i><i></i></span></div>
+                      <div class="msg msg--in" data-at="0.36">
+                        <span class="wa-doc">
+                          <span class="wa-doc__page" aria-hidden="true"><span class="mini__top"><b>Your Studio</b><span>Invoice INV-0147</span></span><span class="mini__title">Dana Lee · Logo design</span><span class="mini__due"><span>Amount due</span><b>$1,200.00</b></span><span class="mini__row"><span>Pay by</span><span>PayPal link</span></span><span class="mini__row"><span>Due</span><span>Oct 7</span></span></span>
+                          <span class="wa-doc__row"><span class="wa-doc__icon">PDF</span><span class="wa-doc__name">INV-0147 Dana Lee.pdf</span></span>
+                          <span class="wa-doc__meta">1 page · PDF · 88 kB</span>
+                        </span>
+                        <span class="msg__text">Sent to Dana with your PayPal link. I’ll&nbsp;add it every&nbsp;time.</span><span class="msg__meta">8:03</span>
+                      </div>
+                      <div class="msg msg--out" data-at="0.60"><span class="msg__text">Pay Sam for Friday’s edits</span><span class="msg__meta">8:05<svg class="tick2"><use href="#i-check-check"/></svg><svg class="tick1"><use href="#i-check"/></svg></span></div>
+                      <div class="typing" data-from="0.64" data-to="0.70"><span class="typing__bubble"><i></i><i></i><i></i></span></div>
+                      <div class="msg msg--in msg--ask" data-at="0.70">
+                        <span class="msg__body"><span class="msg__text">Pay Sam $270?</span><span class="msg__meta">8:05</span></span>
+                        <span class="wa-actions"><span class="wa-action" data-press="0.78"><svg><use href="#i-reply"/></svg>Yes, pay it</span><span class="wa-action"><svg><use href="#i-reply"/></svg>Not yet</span></span>
+                      </div>
+                      <div class="msg msg--out" data-at="0.81"><span class="msg__text">Yes, pay it</span><span class="msg__meta">8:06<svg class="tick2"><use href="#i-check-check"/></svg><svg class="tick1"><use href="#i-check"/></svg></span></div>
+                      <div class="typing" data-from="0.84" data-to="0.90"><span class="typing__bubble"><i></i><i></i><i></i></span></div>
+                      <div class="msg msg--in" data-at="0.90">
+                        <span class="wa-doc">
+                          <span class="wa-doc__row"><span class="wa-doc__icon">PDF</span><span class="wa-doc__name">Receipt Sam Ortiz.pdf</span></span>
+                          <span class="wa-doc__meta">1 page · PDF · 41 kB</span>
+                        </span>
+                        <span class="msg__text">Paid. Receipt saved to Drive.</span><span class="msg__meta">8:06</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="composer">
+                    <svg class="composer__clip"><use href="#i-clip"/></svg>
+                    <svg class="composer__plus"><use href="#i-plus"/></svg>
+                    <span class="composer__field"><span data-channel-input></span><svg class="composer__smile"><use href="#i-smile"/></svg><svg class="composer__inmic"><use href="#i-mic"/></svg></span>
+                    <svg class="composer__cam"><use href="#i-camera"/></svg>
+                    <svg class="composer__mic"><use href="#i-mic"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sr-only">Example: you text Blindless to invoice Dana $1,200 and tell it to always add your PayPal link. It sends the PDF invoice and remembers the rule for next time. Then you ask it to pay Sam; it shows $270, waits for your yes, pays by PayPal and saves the receipt to Drive.</p>
+    </section>
+
+    <!-- Use cases: every task comes back as a finished file -->
+    <section id="jobs" class="section jobs" aria-labelledby="jobs-title">
+      <div class="wrap">
+        <div class="head jobs__head" data-reveal>
+          <h2 id="jobs-title" class="h2">Hand it&nbsp;off.</h2>
+        </div>
+
+        <nav class="jobs__index" aria-label="Tasks" data-jobs-index>
+          <a href="#job-inv" aria-current="true">Invoices</a><a href="#job-quo">Proposals</a><a href="#job-pay">Payments</a><a href="#job-stb">Receipts</a><a href="#job-eml">Reminders</a><a href="#job-sch">Meetings</a>
+        </nav>
+
+        <ol class="jobs__grid" data-jobs>
+          <!-- 1. Invoice: hero, portrait page -->
+          <li class="job job--inv" id="job-inv" data-reveal>
+            <header class="job__head"><div><h3>Invoices</h3><p class="job__tool">QuickBooks</p></div></header>
+            <div class="job__chat wall">
+              <p class="tb tb--out">Invoice Walt, $640, due&nbsp;Friday<span class="tb__meta">9:12<svg><use href="#i-check-check"/></svg></span></p>
+              <div class="tb tb--in wdoc">
+                <div class="wdoc__page" aria-hidden="true" inert>
+                  <div class="paper" data-paper="inv">
+                    <div class="pg pg--inv">
+                      <div class="pg__top">
+                        <div class="pg__brand"><i class="pg__logo pg__logo--round" data-mono="YS"></i><div><b>Your Studio</b><span>Sample document</span></div></div>
+                        <div class="pg__id"><span>Invoice</span><b>INV-0148</b></div>
+                      </div>
+                      <div class="pg__due">
+                        <div><span>Amount due</span><b>$640.00</b></div>
+                        <div><span>Due</span><em>Fri, Sep 25</em><span>Pay by</span><em>PayPal or card</em></div>
+                      </div>
+                      <div class="pg__meta">
+                        <div><span>Bill to</span>Walt Dorsey<br>88 Linden St, Oakland</div>
+                        <div><span>Project</span>Kitchen photo shoot<br>Sep 21 · half day</div>
+                        <div><span>Issued</span>Sep 23, 2026</div>
+                      </div>
+                      <table class="pg__lines">
+                        <thead><tr><th>Item</th><th>Qty</th><th>Amount</th></tr></thead>
+                        <tbody>
+                          <tr><td>Half-day shoot</td><td>1</td><td>$420.00</td></tr>
+                          <tr><td>Edited photos</td><td>24</td><td>$180.00</td></tr>
+                          <tr><td>Travel</td><td>1</td><td>$40.00</td></tr>
+                        </tbody>
+                      </table>
+                      <div class="pg__close">
+                        <div class="pg__sum">
+                          <p><span>Subtotal</span><span>$640.00</span></p>
+                          <p><span>Tax</span><span>$0.00</span></p>
+                          <p class="is-total"><span>Total</span><span>$640.00</span></p>
+                        </div>
+                      </div>
+                      <div class="pg__foot"><span class="pg__pay">Pay $640.00</span><span>PayPal or card</span></div>
+                    </div>
+                  </div>
+                </div>
+                <button class="wdoc__row" type="button" data-doc="inv" aria-haspopup="dialog">
+                  <span class="wdoc__icon" aria-hidden="true">PDF</span>
+                  <span class="wdoc__name"><span class="sr-only">Open </span>INV-0148 Walt Dorsey.pdf</span>
+                </button>
+                <span class="wdoc__meta">1 page · PDF · 84 kB</span>
+                <p class="wdoc__cap">Sent to Walt.<span class="tb__meta">9:12</span></p>
+              </div>
+            </div>
+          </li>
+
+          <!-- 2. Proposal: three packages -->
+          <li class="job job--quo" id="job-quo" data-reveal>
+            <header class="job__head"><div><h3>Proposals</h3><p class="job__tool">Google Docs · Gmail</p></div></header>
+            <div class="job__chat wall">
+              <p class="tb tb--out">Send Bev the 3 website&nbsp;packages<span class="tb__meta">10:05<svg><use href="#i-check-check"/></svg></span></p>
+              <div class="tb tb--in wdoc">
+                <div class="wdoc__page" aria-hidden="true" inert>
+                  <div class="paper" data-paper="quo">
+                    <div class="pg pg--quo">
+                      <div class="pg__top">
+                        <div class="pg__brand"><i class="pg__logo pg__logo--round" data-mono="YS"></i><div><b>Your Studio</b><span>Bev Hollis · new website · valid 30 days</span></div></div>
+                        <div class="pg__id"><span>Proposal</span><b>P-031</b></div>
+                      </div>
+                      <ul class="pg__tiers">
+                        <li><span>Starter</span><b>$1,800</b><small>5 pages, template design</small></li>
+                        <li class="is-pick"><span>Standard</span><b>$3,200</b><small>8 pages, custom design</small><em>Recommended</em></li>
+                        <li><span>Plus</span><b>$4,900</b><small>Shop, blog and SEO setup</small></li>
+                      </ul>
+                      <table class="pg__lines">
+                        <thead><tr><th>Standard includes</th><th>Qty</th><th>Amount</th></tr></thead>
+                        <tbody>
+                          <tr><td>Discovery call &amp; sitemap</td><td>1</td><td>$400.00</td></tr>
+                          <tr><td>Custom page design</td><td>8</td><td>$1,600.00</td></tr>
+                          <tr><td>Build &amp; launch</td><td>1</td><td>$800.00</td></tr>
+                          <tr><td>Copy edit &amp; SEO basics</td><td>1</td><td>$400.00</td></tr>
+                        </tbody>
+                      </table>
+                      <div class="pg__foot"><span class="pg__pay">Pick a package</span><span>50% to start</span></div>
+                    </div>
+                  </div>
+                </div>
+                <button class="wdoc__row" type="button" data-doc="quo" aria-haspopup="dialog">
+                  <span class="wdoc__icon" aria-hidden="true">PDF</span>
+                  <span class="wdoc__name"><span class="sr-only">Open </span>P-031 Bev Hollis.pdf</span>
+                </button>
+                <span class="wdoc__meta">2 pages · PDF · 164 kB</span>
+                <p class="wdoc__cap">Sent to Bev. She opened&nbsp;it.<span class="tb__meta">10:21</span></p>
+              </div>
+            </div>
+          </li>
+
+          <!-- 3. Payment: dark, approval -->
+          <li class="job job--pay" id="job-pay" data-reveal>
+            <header class="job__head"><div><h3>Payments</h3><p class="job__tool">PayPal</p></div></header>
+            <div class="job__chat wall wall--dark">
+              <p class="tb tb--out">Pay Lena’s&nbsp;invoice<span class="tb__meta">12:40<svg><use href="#i-check-check"/></svg></span></p>
+              <div class="tb tb--in wask" data-ask>
+                <p class="wask__num">$180.00</p>
+                <div class="wdoc__page wask__page" aria-hidden="true" inert><div class="paper" data-paper="pay"><div class="pg pg--reg pg--vendor">
+          <div class="pg__top"><div class="pg__brand"><i class="pg__logo pg__logo--round" data-mono="LB"></i><div><b>Lena Brooks Editing</b><span>Sample document</span></div></div><div class="pg__id"><span>Invoice</span><b>LB-027</b></div></div>
+          <div class="pg__due"><div><span>Amount due</span><b>$180.00</b></div><div><span>Due</span><em>On receipt</em><span>Pay by</span><em>PayPal</em></div></div>
+          <div class="pg__meta"><div><span>Bill to</span>You<br>Your Studio</div><div><span>Project</span>Website copy<br>Edited Mon, Sep 21</div><div><span>Issued</span>Sep 23, 2026</div></div>
+          <table class="pg__lines">
+            <thead><tr><th>Item</th><th>Hours</th><th>Rate</th><th>Amount</th></tr></thead>
+            <tbody><tr><td>Copy edit, website</td><td>3</td><td>$45.00</td><td>$135.00</td></tr><tr><td>Proofread, brochure</td><td>1</td><td>$45.00</td><td>$45.00</td></tr></tbody>
+          </table>
+          <div class="pg__close">
+            <div class="pg__sum"><p class="is-total"><span>Total</span><span>$180.00</span></p></div>
+          </div>
+          <div class="pg__foot"><span class="pg__pay">Pay $180.00</span><span>PayPal</span></div>
+        </div></div></div>
+                <button class="wask__file" type="button" data-doc="pay" aria-haspopup="dialog"><span class="wdoc__icon" aria-hidden="true">PDF</span><span><span class="sr-only">Open </span>LB-027 Lena Brooks.pdf</span></button>
+                <span class="wdoc__meta">1 page · PDF · 52 kB</span>
+                <p class="wask__wait">Pay it?<span class="tb__meta">12:40</span></p>
+                <div class="wask__acts">
+                  <button type="button" class="wask__act wask__act--yes" data-approve><svg class="ico" aria-hidden="true"><use href="#i-reply"/></svg>Yes, pay it</button>
+                  <button type="button" class="wask__act" data-hold><svg class="ico" aria-hidden="true"><use href="#i-reply"/></svg>Not yet</button>
+                </div>
+              </div>
+              <p class="tb tb--out wask__reply" data-reply="yes" hidden>Yes, pay it<span class="tb__meta">12:41<svg><use href="#i-check-check"/></svg></span></p>
+              <p class="tb tb--in wask__done" data-done="yes" hidden><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Paid. Receipt saved to&nbsp;Drive.<span class="tb__meta">12:41</span></p>
+              <p class="tb tb--out wask__reply" data-reply="hold" hidden>Not yet<span class="tb__meta">12:41<svg><use href="#i-check-check"/></svg></span></p>
+              <p class="tb tb--in wask__done" data-done="hold" hidden>Holding it. Nothing gets paid until you say&nbsp;so.<span class="tb__meta">12:41</span></p>
+            </div>
+          </li>
+
+          <!-- 4. Receipts: three files -->
+          <li class="job job--stb" id="job-stb" data-reveal>
+            <header class="job__head"><div><h3>Receipts</h3><p class="job__tool">Gmail · Google Drive</p></div></header>
+            <div class="job__chat wall">
+              <p class="tb tb--out">Send my accountant the&nbsp;receipts<span class="tb__meta">12:50<svg><use href="#i-check-check"/></svg></span></p>
+              <div class="wfiles">
+                <div class="tb tb--in wfile">
+                  <span class="wdoc__icon" aria-hidden="true">PDF</span>
+                  <button class="wfile__row" type="button" data-doc="stb" data-page="0" aria-haspopup="dialog"><span class="sr-only">Open </span>Software receipt Sep 18.pdf</button>
+                  <span class="wfile__meta">1 page · PDF · 38 kB</span>
+                </div>
+                <div class="tb tb--in wfile">
+                  <span class="wdoc__icon" aria-hidden="true">PDF</span>
+                  <button class="wfile__row" type="button" data-doc="stb" data-page="1" aria-haspopup="dialog"><span class="sr-only">Open </span>Lens rental receipt Sep 12.pdf</button>
+                  <span class="wfile__meta">1 page · PDF · 41 kB</span>
+                </div>
+                <div class="tb tb--in wfile">
+                  <span class="wdoc__icon" aria-hidden="true">PDF</span>
+                  <button class="wfile__row" type="button" data-doc="stb" data-page="2" aria-haspopup="dialog"><span class="sr-only">Open </span>Coworking receipt Sep 1.pdf</button>
+                  <span class="wfile__meta">1 page · PDF · 36 kB</span>
+                  <p class="wdoc__cap">Sent to your accountant.<span class="tb__meta">12:51</span></p>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- 5. Payment reminders: email preview -->
+          <li class="job job--eml" id="job-eml" data-reveal>
+            <header class="job__head"><div><h3>Reminders</h3><p class="job__tool">Gmail</p></div></header>
+            <div class="job__chat wall">
+              <p class="tb tb--out">Nudge anyone who owes&nbsp;me<span class="tb__meta">1:20<svg><use href="#i-check-check"/></svg></span></p>
+              <div class="tb tb--in wlink">
+                <div class="wlink__img" aria-hidden="true" inert>
+                  <div class="paper paper--mail" data-paper="eml">
+                    <div class="pg pg--mail">
+                      <div class="mail__bar"><i class="pg__logo pg__logo--round" data-mono="YS"></i><b>Your Studio</b></div>
+                      <div class="mail__hero mail__hero--due"><span>Due Sep 15</span><b>$980.00</b></div>
+                      <div class="mail__body">
+                        <p class="mail__h">A quick reminder about INV-0139.</p>
+                        <p>Hi Ray, a friendly nudge about the brand photos. Pay by PayPal or card below. Thank you!</p>
+                        <span class="mail__cta">Pay $980.00</span>
+                        <p class="mail__small">Your Studio · Sample</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="wlink__open" type="button" data-doc="eml" aria-haspopup="dialog"><span class="sr-only">Open the </span>Email preview</button>
+                <p class="wdoc__cap">3 reminders&nbsp;sent.<span class="tb__meta">1:21</span></p>
+              </div>
+            </div>
+          </li>
+
+          <!-- 6. Calendar: screenshot -->
+          <li class="job job--sch" id="job-sch" data-reveal>
+            <header class="job__head"><div><h3>Meetings</h3><p class="job__tool">Google Calendar</p></div></header>
+            <div class="job__chat wall">
+              <p class="tb tb--out">Move my Bev call to next&nbsp;Thursday<span class="tb__meta">2:05<svg><use href="#i-check-check"/></svg></span></p>
+              <div class="tb tb--in wimg">
+                <div class="wimg__pic" aria-hidden="true" inert>
+                  <div class="paper paper--board" data-paper="sch">
+                    <div class="board">
+                      <div class="board__head"><b>Week of Sep 28</b></div>
+                      <div class="board__grid">
+                        <span class="board__day">Mon</span><span class="board__day">Tue</span><span class="board__day">Wed</span><span class="board__day">Thu</span><span class="board__day">Fri</span>
+                        <span class="board__job board__job--a board__c1">Team sync<small>9 AM</small></span>
+                        <span class="board__job board__job--a board__c2">Dentist<small>11 AM</small></span>
+                        <span class="board__job board__job--a board__c4">Lunch w/&nbsp;Ray<small>12:30 PM</small></span>
+                        <span class="board__ghost board__ghost--one board__c2 board__r2" aria-hidden="true"></span>
+                        <span class="board__job board__job--b board__r2 board__move board__move--one" data-move>Bev call<small>2 PM</small></span>
+                        <span class="board__job board__job--a board__c3 board__r3">Photo shoot<small>3 PM</small></span>
+                        <span class="board__job board__job--a board__c5 board__r3">Gym<small>6 PM</small></span>
+                      </div>
+                      <div class="board__crew"><i>BH</i><i>YS</i><span>Bev accepted</span></div>
+                    </div>
+                  </div>
+                </div>
+                <button class="wimg__open" type="button" data-doc="sch" aria-haspopup="dialog"><span class="sr-only">Open the calendar screenshot</span></button>
+                <p class="wdoc__cap">Moved to Thu, Oct 1 at 2&nbsp;PM.<span class="tb__meta">2:05</span></p>
+              </div>
+            </div>
+          </li>
+        </ol>
+        <p class="jobs__more"><a href="use-cases.html">See more use cases</a></p>
+      </div>
+
+      <!-- Extra pages for multi-page docs -->
+      <template data-pages="quo">
+        <div class="paper"><div class="pg pg--plain"><p class="pg__h">Scope &amp; terms</p><p>Two rounds of changes in every package. Timeline: 3 weeks from approval. You own the site and every file.</p><p class="pg__sign"><span>Approved by</span><span>Date</span></p></div></div>
+      </template>
+      <template data-pages="stb">
+        <div class="paper"><div class="pg pg--stub pg--vendor">
+          <div class="pg__top"><div class="pg__brand"><i class="pg__logo pg__logo--round" data-mono="CA"></i><div><b>Cloud Apps Inc.</b><span>Sample receipt</span></div></div><div class="pg__id"><span>Receipt</span><b>Sep 18</b></div></div>
+          <div class="pg__meta"><div><span>Billed to</span>You<br>Your Studio</div><div><span>Paid</span>Sep 18, 2026<br>Visa ···· 4417</div><div><span>Filed</span>Drive › Receipts<br>September</div></div>
+          <table class="pg__lines">
+            <thead><tr><th>Item</th><th>Qty</th><th>Amount</th></tr></thead>
+            <tbody><tr><td>Design suite · monthly plan</td><td>1</td><td>$54.99</td></tr><tr><td>Sales tax</td><td></td><td>$5.00</td></tr></tbody>
+          </table>
+          <div class="pg__close"><span class="pg__stamp">Paid</span><div class="pg__sum"><p class="is-total"><span>Total</span><span>$59.99</span></p></div></div>
+        </div></div>
+        <div class="paper"><div class="pg pg--stub pg--vendor">
+          <div class="pg__top"><div class="pg__brand"><i class="pg__logo pg__logo--round" data-mono="LL"></i><div><b>Lens &amp; Light Rentals</b><span>Sample receipt</span></div></div><div class="pg__id"><span>Receipt</span><b>Sep 12</b></div></div>
+          <div class="pg__meta"><div><span>Billed to</span>You<br>Your Studio</div><div><span>Paid</span>Sep 12, 2026<br>Visa ···· 4417</div><div><span>Filed</span>Drive › Receipts<br>September</div></div>
+          <table class="pg__lines">
+            <thead><tr><th>Item</th><th>Qty</th><th>Amount</th></tr></thead>
+            <tbody><tr><td>Lens rental · 3 days</td><td>3</td><td>$165.00</td></tr><tr><td>Damage waiver</td><td>1</td><td>$20.00</td></tr></tbody>
+          </table>
+          <div class="pg__close"><span class="pg__stamp">Paid</span><div class="pg__sum"><p class="is-total"><span>Total</span><span>$185.00</span></p></div></div>
+        </div></div>
+        <div class="paper"><div class="pg pg--stub pg--vendor">
+          <div class="pg__top"><div class="pg__brand"><i class="pg__logo pg__logo--round" data-mono="NC"></i><div><b>Northside Coworking</b><span>Sample receipt</span></div></div><div class="pg__id"><span>Receipt</span><b>Sep 1</b></div></div>
+          <div class="pg__meta"><div><span>Billed to</span>You<br>Your Studio</div><div><span>Paid</span>Sep 1, 2026<br>Visa ···· 4417</div><div><span>Filed</span>Drive › Receipts<br>September</div></div>
+          <table class="pg__lines">
+            <thead><tr><th>Item</th><th>Qty</th><th>Amount</th></tr></thead>
+            <tbody><tr><td>Desk membership · September</td><td>1</td><td>$320.00</td></tr></tbody>
+          </table>
+          <div class="pg__close"><span class="pg__stamp">Paid</span><div class="pg__sum"><p class="is-total"><span>Total</span><span>$320.00</span></p></div></div>
+        </div></div>
+      </template>
+    </section>
+
+    <!-- A day by text -->
+    <section id="day" class="day" aria-labelledby="day-title" data-day>
+      <div class="wrap day__grid">
+        <div class="day__head">
+          <h2 id="day-title" class="h2">Anyone can teach&nbsp;it.</h2>
+        </div>
+        <ol class="feed feed--plain" data-feed>
+          <li class="t-row is-on" data-now="7:30 AM" data-done="1">
+            <p class="t-who"><b>Rosa,</b><span>a baker</span></p>
+            <p class="bub bub--ask">Order flour, the&nbsp;usual</p>
+            <div class="bub bub--done">
+              <span class="av av--ff" aria-hidden="true"><svg><use href="#i-logo"/></svg></span>
+              <p>50&nbsp;lb for $42. Order&nbsp;it?</p>
+              <p class="status-chip"><i></i>Remembered your usual order</p>
+            </div>
+          </li>
+          <li class="t-row" data-now="9:15 AM" data-done="2">
+            <p class="t-who"><b>Glen,</b><span>a realtor</span></p>
+            <p class="bub bub--ask">Send my buyers a flyer for 14 Oak&nbsp;St</p>
+            <div class="bub bub--done">
+              <span class="av av--ff" aria-hidden="true"><svg><use href="#i-logo"/></svg></span>
+              <p class="bub__file"><span class="wdoc__icon" aria-hidden="true">PDF</span>14 Oak St flyer.pdf</p>
+              <p>Sent to your 12&nbsp;buyers.</p>
+              <p class="status-chip"><i></i>Remembered your buyer list</p>
+            </div>
+          </li>
+          <li class="t-row" data-now="12:30 PM" data-done="3">
+            <p class="t-who"><b>You</b></p>
+            <p class="bub bub--ask">Every Friday, send my hours to&nbsp;Donna</p>
+            <div class="bub bub--done">
+              <span class="av av--ff" aria-hidden="true"><svg><use href="#i-logo"/></svg></span>
+              <p>Got it. Fridays at 4&nbsp;PM.</p>
+              <p class="status-chip"><i></i>Learned your Friday routine</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Control -->
+    <section class="section control" aria-labelledby="control-title">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="control-title" class="h2">You decide what it&nbsp;does.</h2>
+        </div>
+        <ol class="lanes">
+          <li class="lane lane--auto" data-reveal>
+            <header class="lane__head"><h3>Do it</h3></header>
+            <ul class="lane__list">
+              <li>Add an event</li>
+              <li>Send a reminder</li>
+              <li>Send an invoice</li>
+            </ul>
+          </li>
+          <li class="lane lane--ask" data-reveal>
+            <header class="lane__head"><h3>Ask first</h3></header>
+            <ul class="lane__list">
+              <li>Pay a bill</li>
+              <li>Send a refund</li>
+              <li>Buy something</li>
+            </ul>
+          </li>
+          <li class="lane lane--off" data-reveal>
+            <header class="lane__head"><h3>Never</h3></header>
+            <ul class="lane__list">
+              <li>Log in to your bank</li>
+              <li>Read your saved passwords</li>
+              <li>Delete your files</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section id="security" class="section security" aria-labelledby="security-title">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="security-title" class="h2 h2--sm">Security</h2>
+          <p class="lead">Disconnect any linked app in one&nbsp;tap.<br>Everything it does is logged.<br>We use 1Password and Vanta.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section faq" aria-labelledby="faq-title">
+      <div class="wrap faq__grid">
+        <div class="head" data-reveal>
+          <h2 id="faq-title" class="h2 h2--sm">Questions</h2>
+          <p class="lead">Ask us: <a href="mailto:hello@blindless.ai">hello@blindless.ai</a></p>
+        </div>
+        <div class="faq__list" data-reveal>
+          <details>
+            <summary>Do I need a new app?<span class="pm" aria-hidden="true"></span></summary>
+            <div class="faq__a"><p>No. Text it on WhatsApp, SMS or&nbsp;Telegram.</p></div>
+          </details>
+          <details>
+            <summary>What can I teach it?<span class="pm" aria-hidden="true"></span></summary>
+            <div class="faq__a"><p>Any task you&nbsp;repeat.</p></div>
+          </details>
+          <details>
+            <summary>What does it cost?<span class="pm" aria-hidden="true"></span></summary>
+            <div class="faq__a"><p>Early access is free. You’ll see the price before you pay&nbsp;anything.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="join" class="final" aria-labelledby="join-title">
+      <div class="wrap final__in">
+        <h2 id="join-title" class="display final__title" data-reveal>Be first to text&nbsp;it.</h2>
+        <form class="join join--center" data-join data-source="footer" novalidate>
+          <fieldset class="chan">
+            <legend class="sr-only">Reach me on</legend>
+            <label><input type="radio" name="channel" value="whatsapp" checked><span>WhatsApp</span></label>
+            <label><input type="radio" name="channel" value="sms"><span>SMS</span></label>
+            <label><input type="radio" name="channel" value="telegram"><span>Telegram</span></label>
+          </fieldset>
+          <div class="join__box">
+            <label class="join__cc"><span class="sr-only">Country code</span>
+              <select name="cc"><option value="1" selected>+1 US / Canada</option><option value="52">+52 Mexico</option><option value="57">+57 Colombia</option><option value="34">+34 Spain</option><option value="44">+44 UK</option></select>
+              <span class="join__ccv" aria-hidden="true" data-cc-label>+1</span></label>
+            <label class="sr-only" for="footer-phone">Mobile number</label>
+            <input id="footer-phone" class="field" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Your WhatsApp number" aria-describedby="footer-hint footer-msg" required>
+            <input class="hp" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn--ink" type="submit">Get early access</button>
+          </div>
+          <p class="join__msg" id="footer-msg" role="status" aria-live="polite"></p>
+          <p class="join__hint" id="footer-hint" data-hint>By tapping Get early access, you agree to early-access messages from Blindless on WhatsApp. Reply STOP to opt&nbsp;out.</p>
+        </form>
+        <button class="teaser" type="button" data-open-game data-reveal aria-haspopup="dialog">
+          <span class="teaser__cards" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="teaser__text">Or <b>play to win</b> a free&nbsp;setup</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <a class="brand" href="#top" aria-label="Blindless, back to top">
+        <svg class="brand__mark brand__mark--tile" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand__name">Blindless</span>
+      </a>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="#how">How it works</a>
+        <a href="use-cases.html">Use cases</a>
+        <a href="#security">Security</a>
+        <a href="#faq">Questions</a>
+        <a href="mailto:hello@blindless.ai">Contact</a>
+      </nav>
+      <p class="foot__copy">© <span data-year>2026</span> Blindless.ai</p>
+    </div>
+  </footer>
+
+  <!-- Mobile: a slim bar keeps the call to action in reach -->
+  <div class="dock" data-dock>
+    <a class="btn btn--ink dock__cta" href="#join" data-dock-cta>Get early access</a>
+    <button class="dock__game" type="button" data-open-game aria-haspopup="dialog" aria-label="Play to win">
+      <span class="teaser__cards" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+  </div>
+
+  <!-- Play to win: side tab (full on wide screens, a slim pull tab elsewhere) -->
+  <div class="ptw-tab is-hidden" data-ptw-tab>
+    <button class="ptw-tab__hide" type="button" aria-label="Hide Play to Win" data-ptw-hide><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+    <button class="ptw-tab__open" type="button" data-open-game aria-haspopup="dialog" aria-label="Play to win"><span>Play to win</span><svg class="ico" aria-hidden="true"><use href="#i-cards"/></svg></button>
+    <span class="ptw-tab__nudge" aria-hidden="true">Play to win</span>
+  </div>
+
+  <!-- Play to win: dialog -->
+  <dialog class="ptw" data-ptw data-card-noun="sealed card" aria-labelledby="ptw-title" aria-describedby="ptw-desc">
+    <div class="ptw__dialog">
+      <button class="ptw__x" type="button" aria-label="Close" data-ptw-close><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+
+      <header class="ptw__head">
+        <p class="kicker">Play to win</p>
+        <h2 id="ptw-title" class="ptw__title" data-ptw-title>Pick a card.</h2>
+        <p id="ptw-desc" class="ptw__desc" data-ptw-desc>Each hides a task we’ll set up for you&nbsp;free.</p>
+      </header>
+
+      <div class="deck-wrap">
+        <ul class="deck" data-deck></ul>
+        <div class="burst" data-burst aria-hidden="true"></div>
+      </div>
+
+      <div class="ptw__foot">
+        <form class="ptw__form" data-claim novalidate>
+          <label class="ptw__label" for="ptw-phone" data-claim-label>Then add your number</label>
+          <div class="join__box">
+            <label class="join__cc"><span class="sr-only">Country code</span>
+              <select name="cc" disabled><option value="1" selected>+1 US / Canada</option><option value="52">+52 Mexico</option><option value="57">+57 Colombia</option><option value="34">+34 Spain</option><option value="44">+44 UK</option></select>
+              <span class="join__ccv" aria-hidden="true" data-cc-label>+1</span></label>
+            <input id="ptw-phone" class="field" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Your WhatsApp number" required disabled>
+            <input class="hp" name="company_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn btn--ink" type="submit" disabled>Claim my prize</button>
+          </div>
+          <p class="join__msg" role="status" aria-live="polite"></p>
+          <p class="ptw__fine">One per person. We only message you about early access and your prize. Reply STOP&nbsp;anytime.</p>
+        </form>
+
+        <div class="ptw__done" data-step="done" hidden>
+          <p class="ptw__codelabel">Your claim code</p>
+          <div class="ptw__code">
+            <output data-code></output>
+            <button class="ptw__copy" type="button" data-copy><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button>
+          </div>
+          <button class="btn btn--line" type="button" data-ptw-close>Back to the site</button>
+        </div>
+      </div>
+
+      <p class="sr-only" aria-live="assertive" data-ptw-live></p>
+    </div>
+  </dialog>
+
+  <dialog class="dv" data-dv aria-labelledby="dv-name" aria-describedby="dv-cap">
+    <div class="dv__bar">
+      <button class="dv__btn" type="button" data-dv-close aria-label="Close"><svg class="ico" aria-hidden="true"><use href="#i-back"/></svg></button>
+      <span class="dv__avatar" aria-hidden="true"><svg class="ico"><use href="#i-logo"/></svg></span>
+      <div class="dv__who"><h2 id="dv-name" data-dv-name>INV-0148 Walt Dorsey.pdf</h2><p data-dv-sub>Blindless · Today at 9:12 AM</p></div>
+      <span class="dv__sample">Sample</span>
+    </div>
+    <div class="dv__stage">
+      <button class="dv__nav dv__nav--prev" type="button" data-dv-prev aria-label="Previous file"><svg class="ico" aria-hidden="true"><use href="#i-back"/></svg></button>
+      <div class="dv__scroll" data-dv-scroll tabindex="0" role="region" aria-label="Document pages">
+        <div class="dv__pages" data-dv-pages></div>
+      </div>
+      <button class="dv__nav dv__nav--next" type="button" data-dv-next aria-label="Next file"><svg class="ico" aria-hidden="true"><use href="#i-next"/></svg></button>
+    </div>
+    <div class="dv__foot">
+      <p class="dv__cap" id="dv-cap" data-dv-cap>Sent to Walt.</p>
+      <p class="dv__count" data-dv-count aria-hidden="true">1 of 6</p>
+      <p class="sr-only" aria-live="polite" data-dv-live></p>
+      <a class="btn btn--light btn--sm dv__cta" href="#join" data-dv-cta>Get early access</a>
+    </div>
+  </dialog>
+</body>
+</html>
