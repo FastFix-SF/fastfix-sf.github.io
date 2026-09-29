@@ -3985,3 +3985,98 @@ body.has-modal { overflow: hidden; }
 
 /* Home: the band as a product card. */
 .bd-buy { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 8px; }
+
+/* ---------- Band, fuller: dark bands, listening, trades, the price ---------- */
+.bd-dark { background: #141412; color: var(--on-dark); }
+.bd-dark .h2 { color: var(--on-dark); }
+.bd-dark .lead { color: var(--on-dark-2); }
+.bd-dark .ag { background: none; overflow: visible; }
+.bd-alt { background: var(--paper-2); }
+.bd-alt .bl-chip { background: var(--paper); }
+
+/* Just say it: a mic, a live wave, the words. */
+.bd-say { padding-block: calc(var(--section) * 0.8); text-align: center; }
+.bd-say__title { font-size: var(--fs-h2); }
+.bd-say__stage { margin-top: clamp(40px, 5vw, 72px); }
+.bd-listen { display: flex; align-items: center; justify-content: center; gap: clamp(18px, 2.4vw, 32px); }
+.bd-listen__mic { position: relative; display: grid; place-items: center; flex: none; width: 72px; height: 72px; border-radius: 50%; background: var(--paper); color: #161613; }
+.bd-listen__mic .ico { width: 30px; height: 30px; }
+.bd-listen__mic::before,
+.bd-listen__mic::after { content: ""; position: absolute; inset: 0; border: 1.5px solid rgba(247, 247, 244, 0.55); border-radius: 50%; opacity: 0; animation: bd-pulse 2.6s ease-out infinite; }
+.bd-listen__mic::after { animation-delay: 1.3s; }
+@keyframes bd-pulse { from { transform: scale(1); opacity: 0.6; } to { transform: scale(1.9); opacity: 0; } }
+.bd-wave { display: flex; align-items: center; gap: 5px; height: 72px; }
+.bd-wave i { --h: 0.6; width: 4px; height: 100%; border-radius: 3px; background: rgba(247, 247, 244, 0.92); transform: scaleY(0.12); animation: bd-wave 1.3s ease-in-out infinite; }
+.bd-wave i:nth-child(7n + 1) { --h: 0.4; animation-duration: 1.1s; animation-delay: -0.2s; }
+.bd-wave i:nth-child(7n + 2) { --h: 0.75; animation-duration: 1.4s; animation-delay: -0.5s; }
+.bd-wave i:nth-child(7n + 3) { --h: 1; animation-duration: 1.2s; animation-delay: -0.9s; }
+.bd-wave i:nth-child(7n + 4) { --h: 0.55; animation-duration: 1.6s; animation-delay: -0.1s; }
+.bd-wave i:nth-child(7n + 5) { --h: 0.9; animation-duration: 1s; animation-delay: -0.7s; }
+.bd-wave i:nth-child(7n + 6) { --h: 0.45; animation-duration: 1.5s; animation-delay: -0.4s; }
+.bd-wave i:nth-child(7n + 7) { --h: 0.7; animation-duration: 1.3s; animation-delay: -1s; }
+.bd-wave i:nth-child(-n + 4),
+.bd-wave i:nth-child(n + 28) { --h: 0.3; }
+@keyframes bd-wave { 0%, 100% { transform: scaleY(0.12); } 50% { transform: scaleY(var(--h, 0.6)); } }
+.bd-asks { display: grid; margin-top: clamp(32px, 4.4vw, 56px); }
+.bd-asks span { grid-area: 1 / 1; font-size: clamp(26px, 3.6vw, 52px); font-weight: 400; line-height: 1.1; letter-spacing: -0.03em; opacity: 0; animation: bd-ask 12s var(--ease) infinite; }
+.bd-asks span:nth-child(2) { animation-delay: 4s; }
+.bd-asks span:nth-child(3) { animation-delay: 8s; }
+@keyframes bd-ask { 0% { opacity: 0; transform: translate3d(0, 12px, 0); } 4%, 30% { opacity: 1; transform: none; } 34%, 100% { opacity: 0; transform: translate3d(0, -12px, 0); } }
+/* the loops run only while the stage is on screen */
+.js-motion .bd-say__stage:not(.is-live) :is(.bd-wave i, .bd-asks span) { animation-play-state: paused; }
+.js-motion .bd-say__stage:not(.is-live) .bd-listen__mic::before,
+.js-motion .bd-say__stage:not(.is-live) .bd-listen__mic::after { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .bd-listen__mic::before, .bd-listen__mic::after { animation: none; }
+  .bd-wave i { animation: none; transform: scaleY(var(--h, 0.6)); }
+  .bd-asks span { animation: none; }
+  .bd-asks span:first-child { opacity: 1; }
+}
+@media (max-width: 639px) {
+  .bd-listen { gap: 14px; }
+  .bd-listen__mic { width: 56px; height: 56px; }
+  .bd-listen__mic .ico { width: 24px; height: 24px; }
+  .bd-wave { gap: 4px; height: 56px; }
+  .bd-wave i { width: 3px; }
+}
+
+/* Made for your work: six trades, each opens its use case. */
+.bd-trades-sec { padding-block: calc(var(--section) * 0.6); }
+.bd-trades { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+.bd-trade { display: grid; justify-items: center; align-content: start; gap: 14px; padding: 26px 8px 22px; border-radius: var(--r-3); background: var(--white); box-shadow: var(--shadow-1); color: var(--ink); font-size: 16px; font-weight: 500; line-height: 1.2; text-align: center; text-decoration: none; transition: translate 300ms var(--ease-out), box-shadow 300ms var(--ease); }
+.bd-trade__ico { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.bd-trade__ico .ico { width: 28px; height: 28px; }
+@media (hover: hover) { .bd-trade:hover { translate: 0 -3px; box-shadow: var(--shadow-2); } }
+@media (max-width: 1023px) { .bd-trades { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 479px) { .bd-trades { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }
+
+/* The price. */
+.bd-price { display: grid; justify-self: start; gap: 1px; font-size: 14.5px; line-height: 1.2; color: var(--stone-text); }
+.bd-price b { font-size: 28px; font-weight: 500; letter-spacing: -0.035em; color: var(--ink); }
+.bd-hero__buy { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 34px; }
+.bd-hero__buy .bd-hero__cta { margin-top: 0; }
+@media (max-width: 1023px) { .bd-hero__buy { justify-content: center; } .bd-hero__buy .bd-price { justify-items: start; } }
+.shop__price { display: flex; align-items: baseline; margin-top: 12px; }
+.shop__price b { font-size: clamp(48px, 5.2vw, 76px); font-weight: 500; line-height: 1; letter-spacing: -0.045em; color: var(--ink); }
+/* On a dark band the agents scene runs the width of the page column, with no card padding around it. */
+.bd-dark .ag__scene { padding: 8px 0 0; }
+
+/* ---------- Band v3 review fixes ---------- */
+/* The product form stacks its button when the column is narrow (tablets held sideways, small laptops). */
+@media (max-width: 1179px) {
+  .shop__form .join__box { grid-template-columns: auto minmax(0, 1fr); }
+  .shop__form .join__box .btn { grid-column: 1 / -1; width: 100%; }
+}
+/* The agents scene's bubbles and titles keep to one line. */
+@media (min-width: 768px) and (max-width: 1023px) { .ag--voice .ag__msg { font-size: 15px; white-space: nowrap; } }
+@media (max-width: 359px) {
+  .ag--voice .ag__list { margin-left: 0; }
+  .ag--voice .ag__agent { gap: 10px; padding-right: 10px; }
+  .ag--voice .ag__txt b { font-size: 14px; }
+}
+.bd-dark .ag { max-width: 960px; margin-inline: auto; }
+.control.bd-alt { padding-block: calc(var(--section) * 0.6); }
+/* On the dark bar the current page stays the brightest link. */
+:root[data-site="blindless"] .nav.is-dark .nav__links a[aria-current="page"] { color: var(--on-dark); }
+/* Keyboard focus never lands behind the phone dock. */
+@media (max-width: 639px) { html.has-dock { scroll-padding-bottom: 96px; } }

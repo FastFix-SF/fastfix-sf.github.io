@@ -183,18 +183,18 @@
 
   const nav = $('.nav');
   if (nav) {
-    const dark = $('.day');
+    const darks = $$('.day, .bd-dark');
     const dockBar = $('[data-dock]');
     const syncNav = () => {
       nav.classList.toggle('is-stuck', window.scrollY > 8);
-      if (!dark) return;
-      // Dark while any of the band is under the bar (the dark bar is solid, so it never shows two tones).
-      const box = dark.getBoundingClientRect();
-      nav.classList.toggle('is-dark', box.top < nav.offsetHeight && box.bottom > 0);
-      // The phone dock follows the band the same way.
+      if (!darks.length) return;
+      // Dark while any dark band is under the bar (the dark bar is solid, so it never shows two tones).
+      const boxes = darks.map((el) => el.getBoundingClientRect());
+      nav.classList.toggle('is-dark', boxes.some((box) => box.top < nav.offsetHeight && box.bottom > 0));
+      // The phone dock follows the bands the same way.
       if (dockBar) {
         const mid = window.innerHeight - parseFloat(getComputedStyle(dockBar).bottom) - dockBar.offsetHeight / 2;
-        dockBar.classList.toggle('is-dark', box.top <= mid && box.bottom >= mid);
+        dockBar.classList.toggle('is-dark', boxes.some((box) => box.top <= mid && box.bottom >= mid));
       }
     };
     frames.add(syncNav);
@@ -868,6 +868,14 @@
     }, { threshold: 0.35 }).observe(fig);
   });
 
+  /* ---------- Loops that run only while on screen ---------- */
+
+  const liveBoxes = $$('[data-live]');
+  if (liveBoxes.length && 'IntersectionObserver' in window) {
+    const liveWatch = new IntersectionObserver((entries) => entries.forEach((entry) => entry.target.classList.toggle('is-live', entry.isIntersecting)));
+    liveBoxes.forEach((box) => liveWatch.observe(box));
+  }
+
   /* ---------- One workday ---------- */
 
   const feed = $('[data-feed]');
@@ -1114,7 +1122,10 @@
       dock.classList.toggle('is-on', on);
       root.classList.toggle('has-dock', on);
       root.classList.toggle('at-join', small.matches && joinForms.some((form) => inView.has(form)));
-      root.classList.toggle('at-close', !small.matches && !!closeForm && inView.has(closeForm));
+      // The bar's button steps aside only while the form's own box is fully on screen below the bar.
+      const box = closeForm && ($('.join__box', closeForm) || closeForm);
+      const rect = box?.getBoundingClientRect();
+      root.classList.toggle('at-close', !small.matches && !!rect && rect.top >= (nav?.offsetHeight || 64) && rect.bottom <= window.innerHeight);
       if (on && !hinted) {
         hinted = true;
         store.set('sessionStorage', `${KEY_BASE}.ptw.nudged`, true);
