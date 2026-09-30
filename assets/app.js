@@ -318,7 +318,7 @@
           if (!node.classList.contains('is-on')) return;
           const bubble = node.firstElementChild;
           bottom = Math.max(bottom, node.offsetTop + bubble.offsetTop + bubble.offsetHeight);
-        } else if (!node.classList.contains('msg') || node.classList.contains('is-shown')) {
+        } else if (node.hasAttribute('data-at') ? node.classList.contains('is-shown') : !node.classList.contains('msg') || node.classList.contains('is-shown')) {
           bottom = Math.max(bottom, node.offsetTop + node.offsetHeight);
         }
       });
@@ -411,16 +411,18 @@
     function syncChrome() {
       const busy = typing.some((item) => item.on);
       const name = phone.dataset.channel;
-      const typingNow = busy && (name === 'WhatsApp' || name === 'Telegram');
-      subLabel.textContent = typingNow ? 'typing…' : CHANNEL[name].sub;
-      subLabel.classList.toggle('is-typing', typingNow);
+      if (CHANNEL[name] && subLabel) {
+        const typingNow = busy && (name === 'WhatsApp' || name === 'Telegram');
+        subLabel.textContent = typingNow ? 'typing…' : CHANNEL[name].sub;
+        subLabel.classList.toggle('is-typing', typingNow);
+      }
       // iOS Messages marks only your latest text "Delivered".
       const outs = timed.filter((item) => item.on && item.out);
       const lastOut = outs[outs.length - 1];
       timed.forEach((item) => { if (item.out) item.node.classList.toggle('is-last-out', item === lastOut); });
       const last = timed.filter((item) => item.on && item.node.classList.contains('msg')).pop();
       const stamp = last && $('.msg__meta', last.node)?.firstChild?.textContent.trim();
-      if (stamp && statusTime.textContent !== stamp) statusTime.textContent = stamp;
+      if (stamp && statusTime && statusTime.textContent !== stamp) statusTime.textContent = stamp;
     }
 
     frames.add(update);
@@ -442,57 +444,59 @@
       }).observe(stage);
     }
 
-    // Channel switcher: same assistant, dressed as each app.
+    // Channel switcher: same assistant, dressed as each app. A phone dressed as one app has none.
     const seg = $('.seg', story);
-    const radios = $$('button[data-channel]', seg);
-    seg.style.setProperty('--seg-n', String(radios.length));
-    const inputLabel = $('[data-channel-input]', story);
-    let switchTimer = 0;
+    if (seg && CHANNEL[phone.dataset.channel]) {
+      const radios = $$('button[data-channel]', seg);
+      seg.style.setProperty('--seg-n', String(radios.length));
+      const inputLabel = $('[data-channel-input]', story);
+      let switchTimer = 0;
 
-    const dress = (name) => {
-      phone.dataset.channel = name;
-      inputLabel.textContent = CHANNEL[name].input;
-      syncChrome();
-      align();
-    };
+      const dress = (name) => {
+        phone.dataset.channel = name;
+        inputLabel.textContent = CHANNEL[name].input;
+        syncChrome();
+        align();
+      };
 
-    const selectChannel = (button, focus) => {
-      const index = radios.indexOf(button);
-      radios.forEach((radio, i) => {
-        radio.setAttribute('aria-checked', String(i === index));
-        radio.tabIndex = i === index ? 0 : -1;
+      const selectChannel = (button, focus) => {
+        const index = radios.indexOf(button);
+        radios.forEach((radio, i) => {
+          radio.setAttribute('aria-checked', String(i === index));
+          radio.tabIndex = i === index ? 0 : -1;
+        });
+        seg.style.setProperty('--seg-i', String(index));
+        if (focus) button.focus();
+        const name = button.dataset.channel;
+        if (phone.dataset.channel === name) return;
+        window.clearTimeout(switchTimer);
+        if (!motion()) { dress(name); return; }
+        phone.classList.add('is-switching');
+        switchTimer = window.setTimeout(() => {
+          dress(name);
+          window.requestAnimationFrame(() => phone.classList.remove('is-switching'));
+        }, 190);
+      };
+
+      radios.forEach((radio, index) => {
+        radio.tabIndex = index === 0 ? 0 : -1;
+        radio.addEventListener('click', () => { selectChannel(radio); setChannel(radio.dataset.channel.toLowerCase()); });
+        radio.addEventListener('keydown', (event) => {
+          const dir = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+          if (!dir) return;
+          event.preventDefault();
+          const next = radios[(index + dir + radios.length) % radios.length];
+          selectChannel(next, true);
+          setChannel(next.dataset.channel.toLowerCase());
+        });
       });
-      seg.style.setProperty('--seg-i', String(index));
-      if (focus) button.focus();
-      const name = button.dataset.channel;
-      if (phone.dataset.channel === name) return;
-      window.clearTimeout(switchTimer);
-      if (!motion()) { dress(name); return; }
-      phone.classList.add('is-switching');
-      switchTimer = window.setTimeout(() => {
-        dress(name);
-        window.requestAnimationFrame(() => phone.classList.remove('is-switching'));
-      }, 190);
-    };
-
-    radios.forEach((radio, index) => {
-      radio.tabIndex = index === 0 ? 0 : -1;
-      radio.addEventListener('click', () => { selectChannel(radio); setChannel(radio.dataset.channel.toLowerCase()); });
-      radio.addEventListener('keydown', (event) => {
-        const dir = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
-        if (!dir) return;
-        event.preventDefault();
-        const next = radios[(index + dir + radios.length) % radios.length];
-        selectChannel(next, true);
-        setChannel(next.dataset.channel.toLowerCase());
+      dress(phone.dataset.channel);
+      // The app picked in a sign-up form dresses the demo phone too.
+      channelBus.addEventListener('pick', (event) => {
+        const button = radios.find((radio) => radio.dataset.channel.toLowerCase() === event.detail);
+        if (button && button.getAttribute('aria-checked') !== 'true') selectChannel(button);
       });
-    });
-    dress(phone.dataset.channel);
-    // The app picked in a sign-up form dresses the demo phone too.
-    channelBus.addEventListener('pick', (event) => {
-      const button = radios.find((radio) => radio.dataset.channel.toLowerCase() === event.detail);
-      if (button && button.getAttribute('aria-checked') !== 'true') selectChannel(button);
-    });
+    }
   }
 
   /* ---------- Hand it off: finished documents you can open ---------- */

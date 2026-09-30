@@ -4080,3 +4080,109 @@ body.has-modal { overflow: hidden; }
 :root[data-site="blindless"] .nav.is-dark .nav__links a[aria-current="page"] { color: var(--on-dark); }
 /* Keyboard focus never lands behind the phone dock. */
 @media (max-width: 639px) { html.has-dock { scroll-padding-bottom: 96px; } }
+
+/* ---------- Story phone, one app (Grokbot): Blindless sets up your bots ---------- */
+.phone[data-channel="Grokbot"] { --bar: #ffffff; --bar-line: rgba(0, 0, 0, 0.08); --wall: #ffffff; --in-ink: #1a1a1a; }
+.phone[data-channel="Grokbot"] .thread::before,
+.phone[data-channel="Grokbot"] .thread::after { display: none; }
+.phone[data-channel="Grokbot"] .thread__list { display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 16px; }
+.gb-head { position: relative; z-index: 3; display: flex; align-items: center; gap: 10px; flex: none; height: 54px; padding: 0 14px 0 16px; background: var(--bar); box-shadow: 0 0.5px 0 var(--bar-line); }
+.gb-head__mark,
+.gb-head__mark svg { width: 30px; height: 30px; }
+.gb-head b { flex: 1; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #111; }
+.gb-head__btns { display: flex; gap: 8px; }
+.gb-head__btns i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); color: #222; }
+.gb-head__btns svg { width: 17px; height: 17px; }
+
+/* The empty app, before any bot exists. */
+.gb-empty { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 6px; padding: 24px; text-align: center; transition: opacity 400ms var(--ease), transform 500ms var(--ease); }
+.gb-empty svg { width: 64px; height: 64px; margin-bottom: 8px; }
+.gb-empty b { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: #111; }
+.gb-empty span { font-size: 14px; color: #777; }
+.gb-empty.is-past { opacity: 0; transform: scale(0.96); }
+
+/* Messages: yours in black, the bot's in grey, like the app. */
+.gb-in,
+.gb-out,
+.gb-card { opacity: 0; transform: translate3d(0, 8px, 0) scale(0.98); transform-origin: 50% 100%; transition: opacity 300ms var(--ease), transform 500ms var(--ease-pop); }
+.gb-in.is-shown,
+.gb-out.is-shown,
+.gb-card.is-shown { opacity: 1; transform: none; }
+.gb-in,
+.gb-out { width: fit-content; max-width: 84%; padding: 9px 13px; border-radius: 18px; font-size: 15px; line-height: 20px; }
+.gb-in { align-self: flex-start; background: #f0f0f0; color: #1a1a1a; }
+.gb-out { align-self: flex-end; background: #111; color: #fff; }
+.gb-link { display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 8px; border-radius: 16px; }
+.gb-link__ico { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 10px; background: #f7f7f4; color: #26251e; }
+.gb-link__ico svg { width: 20px; height: 20px; }
+.gb-link b { display: block; font-size: 14px; font-weight: 600; }
+.gb-link small { display: block; font-size: 12.5px; color: rgba(255, 255, 255, 0.7); }
+.phone[data-channel="Grokbot"] .typing__bubble { background: #f0f0f0; box-shadow: none; border-radius: 18px; }
+.phone[data-channel="Grokbot"] .typing__bubble::before { display: none; }
+
+/* The setup card: four bots, each fills in with its own logo. */
+.gb-card { align-self: stretch; padding: 10px; border-radius: 18px; background: #f3f3f3; }
+.gb-card__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 4px 10px; }
+.gb-card__head b { font-size: 15px; font-weight: 600; color: #111; }
+.gb-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 99px; background: #fff; font-size: 12px; font-weight: 500; color: #555; }
+.gb-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #ff6a1f; transition: background-color 300ms var(--ease); }
+.gb-pill::after { content: "Working"; }
+.gb-pill.is-shown::before { background: #34a853; }
+.gb-pill.is-shown::after { content: "Ready"; }
+.gb-bots { display: grid; gap: 6px; }
+.gb-bots li { display: grid; grid-template-columns: 36px minmax(0, 1fr) 20px; align-items: center; gap: 11px; padding: 9px 10px; border-radius: 13px; background: #fff; }
+.gb-bots li > :not(.gb-check) { opacity: 0; transform: scale(0.85); transition: opacity 300ms var(--ease), transform 500ms var(--ease-pop); }
+.gb-bots li.is-shown > :not(.gb-check) { opacity: 1; transform: none; }
+.gb-bots li > span { transform: translate3d(-6px, 0, 0); }
+.gb-bots__ico { width: 36px; height: 36px; border-radius: 9px; }
+.gb-bots b { display: block; font-size: 14.5px; font-weight: 600; color: #111; }
+.gb-bots small { display: block; font-size: 12.5px; color: #6b6b6b; }
+.gb-check { position: relative; width: 20px; height: 20px; border-radius: 50%; }
+.gb-check::before { content: ""; position: absolute; inset: 0; border: 2px solid #e4e4e4; border-top-color: #ff6a1f; border-radius: 50%; animation: bd-turn 800ms linear infinite; }
+.gb-check::after { content: ""; position: absolute; left: 7px; top: 4px; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; opacity: 0; transform: rotate(45deg) scale(0.3); transition: opacity 250ms var(--ease) 450ms, transform 450ms var(--ease-pop) 450ms; }
+.gb-bots li.is-shown .gb-check { background: #34a853; transition: background-color 250ms var(--ease) 450ms; }
+.gb-bots li.is-shown .gb-check::before { opacity: 0; transition: opacity 200ms var(--ease) 400ms; }
+.gb-bots li.is-shown .gb-check::after { opacity: 1; transform: rotate(45deg); }
+
+/* The composer: the link lands in it, then sends. */
+.gb-compose { position: relative; z-index: 3; display: flex; align-items: center; gap: 10px; flex: none; height: 88px; padding: 8px 14px 36px; background: var(--bar); box-shadow: 0 -0.5px 0 var(--bar-line); }
+.gb-compose__field { display: grid; align-items: center; flex: 1; min-width: 0; height: 40px; padding: 0 14px; overflow: hidden; border-radius: 20px; background: #f2f2f2; font-size: 15px; white-space: nowrap; }
+.gb-compose__field > span { grid-area: 1 / 1; overflow: hidden; text-overflow: ellipsis; transition: opacity 200ms var(--ease); }
+.gb-compose__ph { color: #9a9a9a; }
+.gb-compose__paste { color: #111; opacity: 0; }
+.gb-compose__paste.is-shown:not(.is-past) { opacity: 1; }
+.gb-compose__field:has(.gb-compose__paste.is-shown:not(.is-past)) .gb-compose__ph { opacity: 0; }
+.gb-compose__send { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 50%; background: #d4d4d4; color: #fff; transition: background-color 200ms var(--ease); }
+.gb-compose:has(.gb-compose__paste.is-shown:not(.is-past)) .gb-compose__send { background: #111; }
+.gb-compose__send svg { width: 18px; height: 18px; }
+
+/* Before the app: Blindless asks which bot you use and hands you your link. */
+.gb-join { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; gap: 16px; padding: 66px 20px 40px; background: #f7f7f4; color: #26251e; font-family: var(--font); transition: transform 650ms var(--ease), opacity 650ms var(--ease); }
+.gb-join.is-past { opacity: 0; transform: translate3d(-40%, 0, 0); pointer-events: none; }
+.gb-join__brand { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.gb-join__brand svg { width: 22px; height: 22px; color: #26251e; }
+.gb-join__q { font-size: 27px; font-weight: 500; line-height: 1.1; letter-spacing: -0.03em; text-wrap: balance; }
+.gb-join__bots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.gb-join__bots li { display: flex; align-items: center; gap: 9px; padding: 9px; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1px rgba(38, 37, 30, 0.1); font-size: 14.5px; font-weight: 500; transition: box-shadow 300ms var(--ease); }
+.gb-join__bots svg { width: 30px; height: 30px; flex: none; border-radius: 8px; }
+.gb-join:has(.gb-btn.is-pressed) .gb-join__bots .is-pick { box-shadow: inset 0 0 0 2px #f54e00; }
+.gb-join__acts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.gb-btn { display: grid; place-items: center; height: 46px; border-radius: 14px; background: #26251e; color: #f7f7f4; font-size: 16px; font-weight: 600; transition: transform 200ms var(--ease), background-color 250ms var(--ease), box-shadow 250ms var(--ease); }
+.gb-btn--line { background: transparent; color: #26251e; box-shadow: inset 0 0 0 1px rgba(38, 37, 30, 0.2); }
+.gb-btn.is-pressed { box-shadow: 0 0 0 4px rgba(245, 78, 0, 0.25); }
+.gb-join__link { display: grid; gap: 8px; padding: 14px; border-radius: 16px; background: #fff; box-shadow: 0 0 0 1px rgba(38, 37, 30, 0.08), 0 18px 30px -18px rgba(38, 37, 30, 0.35); opacity: 0; transform: translate3d(0, 14px, 0); transition: opacity 350ms var(--ease), transform 550ms var(--ease-out); }
+.gb-join__link.is-shown { opacity: 1; transform: none; }
+.gb-join__link small { font-size: 12.5px; font-weight: 500; color: #64635d; }
+.gb-join__url { padding: 9px 12px; overflow: hidden; border-radius: 10px; background: #f2f1ec; font-family: var(--mono); font-size: 13.5px; white-space: nowrap; text-overflow: ellipsis; }
+.gb-copy { position: relative; }
+.gb-copy > span { grid-area: 1 / 1; transition: opacity 200ms var(--ease); }
+.gb-copy > span + span { opacity: 0; }
+.gb-copy.is-pressed { background: #34785c; box-shadow: none; }
+.gb-copy.is-pressed > span:first-child { opacity: 0; }
+.gb-copy.is-pressed > span + span { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .gb-check::before { animation: none; }
+}
+/* The clock and battery stay on top of the Blindless screen too. */
+.phone[data-channel="Grokbot"] .status { z-index: 6; background: transparent; }
+.phone[data-channel="Grokbot"] .gb-head { margin-top: -52px; padding-top: 52px; height: 106px; }
