@@ -4186,3 +4186,123 @@ body.has-modal { overflow: hidden; }
 /* The clock and battery stay on top of the Blindless screen too. */
 .phone[data-channel="Grokbot"] .status { z-index: 6; background: transparent; }
 .phone[data-channel="Grokbot"] .gb-head { margin-top: -52px; padding-top: 52px; height: 106px; }
+
+/* ---------- Demo video: the hero's "Watch the demo" and its player ---------- */
+
+.hero__demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  margin-top: 22px;
+  padding: 0 18px 0 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  animation: rise 1200ms var(--ease-out) 470ms both;
+  transition: background-color 240ms var(--ease), border-color 240ms var(--ease), transform 240ms var(--ease);
+}
+.hero__demo:active { transform: scale(0.97); }
+.hero__demo-play {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  transition: transform 320ms var(--ease-pop);
+}
+.hero__demo-play .ico { width: 12px; height: 12px; margin-left: 2px; }
+.hero__demo-len { color: var(--stone-text); font-variant-numeric: tabular-nums; }
+@media (hover: hover) {
+  .hero__demo:hover { background: #ffffff; border-color: rgba(38, 37, 30, 0.2); }
+  .hero__demo:hover .hero__demo-play { transform: scale(1.08); }
+}
+.hero__demo + .join { margin-top: 30px; }
+@media (min-width: 1024px) and (max-height: 820px) {
+  .hero__demo { margin-top: 16px; }
+  .hero__demo + .join { margin-top: 24px; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero__demo { height: 40px; margin-top: 12px; }
+  .hero__demo + .join { margin-top: 16px; }
+}
+
+.demo {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px));
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+.demo[open] { display: grid; place-items: center; }
+.demo::backdrop {
+  background: rgba(20, 20, 18, 0.74);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 360ms var(--ease);
+}
+.demo.is-open::backdrop { opacity: 1; }
+/* The video keeps its shape: as wide as the screen allows, as tall as leaves room for its bar. */
+.demo__box {
+  --room: calc(96px + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  gap: 14px;
+  width: min(440px, calc(100vw - 32px), calc((100vh - var(--room)) * 440 / 832));
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.97);
+  transition: opacity 420ms var(--ease), transform 650ms var(--ease-out);
+}
+@supports (height: 100svh) {
+  .demo__box { width: min(440px, calc(100vw - 32px), calc((100svh - var(--room)) * 440 / 832)); }
+}
+.demo.is-open .demo__box { opacity: 1; transform: none; }
+.demo.is-closing .demo__box { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.98); transition: opacity 200ms var(--ease-in), transform 240ms var(--ease-in); }
+.demo__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 440 / 832;
+  border-radius: 28px;
+  background: var(--paper);
+  box-shadow: 0 40px 90px -24px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+.demo__bar { display: flex; align-items: center; gap: 12px; }
+.demo__btn {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(247, 247, 244, 0.14);
+  color: var(--paper);
+  cursor: pointer;
+  transition: background-color 200ms var(--ease), transform 200ms var(--ease);
+}
+.demo__btn:active { transform: scale(0.94); }
+@media (hover: hover) { .demo__btn:hover { background: rgba(247, 247, 244, 0.26); } }
+.demo__btn .ico { width: 18px; height: 18px; }
+.demo__play,
+.demo__btn.is-paused .demo__pause { display: none; }
+.demo__btn.is-paused .demo__play { display: block; margin-left: 2px; }
+.demo__track { flex: 1; height: 4px; overflow: hidden; border-radius: 2px; background: rgba(247, 247, 244, 0.22); }
+.demo__track > i { display: block; height: 100%; background: var(--paper); transform: scaleX(var(--t, 0)); transform-origin: 0 50%; }
+@media (prefers-reduced-motion: reduce) {
+  .hero__demo { animation: none; }
+}

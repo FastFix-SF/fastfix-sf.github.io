@@ -1161,6 +1161,70 @@
     document.addEventListener('focusout', () => window.setTimeout(sync, 50));
   }
 
+  /* ---------- Demo video: "Watch the demo" plays the setup flow in a dialog ---------- */
+
+  const demo = $('[data-demo]');
+  if (demo) {
+    const video = $('[data-demo-video]', demo);
+    const toggle = $('[data-demo-toggle]', demo);
+    const progress = $('[data-demo-progress]', demo);
+    const closeButton = $('[data-demo-close]', demo);
+    let opener = null;
+    let tick = 0;
+
+    // The bar follows the video while it plays.
+    const follow = () => {
+      if (video.duration) progress.style.setProperty('--t', String(video.currentTime / video.duration));
+      tick = video.paused ? 0 : window.requestAnimationFrame(follow);
+    };
+    const sync = () => {
+      toggle.classList.toggle('is-paused', video.paused);
+      toggle.setAttribute('aria-label', video.paused ? 'Play demo' : 'Pause demo');
+      if (!video.paused && !tick) tick = window.requestAnimationFrame(follow);
+    };
+    // A refused play (data saver, an old browser) leaves the poster and a Play button.
+    const play = () => video.play()?.catch(sync);
+    const flip = () => (video.paused ? play() : video.pause());
+
+    const openDemo = (event) => {
+      if (demo.open) return;
+      opener = event.currentTarget;
+      demo.showModal();
+      document.body.classList.add('has-modal');
+      window.requestAnimationFrame(() => demo.classList.add('is-open'));
+      video.currentTime = 0;
+      progress.style.setProperty('--t', '0');
+      play();
+      closeButton.focus({ preventScroll: true });
+    };
+    const closeDemo = () => {
+      if (!demo.open || demo.classList.contains('is-closing')) return;
+      video.pause();
+      demo.classList.remove('is-open');
+      demo.classList.add('is-closing');
+      window.setTimeout(() => {
+        demo.close();
+        if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+      }, motion() ? 240 : 0);
+    };
+
+    video.addEventListener('play', sync);
+    video.addEventListener('pause', sync);
+    video.addEventListener('click', flip);
+    toggle.addEventListener('click', flip);
+    closeButton.addEventListener('click', closeDemo);
+    $$('[data-demo-open]').forEach((button) => button.addEventListener('click', openDemo));
+    demo.addEventListener('cancel', (event) => { event.preventDefault(); closeDemo(); });
+    // A click on the dialog itself, outside the video and its bar, closes it.
+    demo.addEventListener('click', (event) => { if (event.target === demo) closeDemo(); });
+    // However it closed (a second Escape can force it shut), leave nothing playing or locked.
+    demo.addEventListener('close', () => {
+      video.pause();
+      demo.classList.remove('is-open', 'is-closing');
+      document.body.classList.remove('has-modal');
+    });
+  }
+
   /* ---------- Play to win ---------- */
 
   const dialog = $('[data-ptw]');
